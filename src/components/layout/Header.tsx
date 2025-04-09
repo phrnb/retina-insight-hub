@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Bell, HelpCircle, Search, Settings, User } from "lucide-react";
+import { Bell, Brain, HelpCircle, Search, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -44,8 +44,9 @@ export function Header() {
       <div className="flex h-full items-center justify-between">
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
-            <div className="font-semibold text-lg text-medical-500">Retina</div>
-            <div className="font-medium text-lg">InsightHub</div>
+            <Brain className="h-5 w-5 text-primary" />
+            <div className="font-semibold text-lg text-primary">Neuro</div>
+            <div className="font-medium text-lg">View</div>
           </div>
         </div>
         
@@ -79,7 +80,7 @@ export function Header() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative h-8 rounded-full">
                 <span className="sr-only">User menu</span>
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-medical-100 text-medical-500">
+                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary/20 text-primary">
                   <User className="h-4 w-4" />
                 </div>
               </Button>

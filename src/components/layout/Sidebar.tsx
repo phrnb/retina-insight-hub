@@ -10,7 +10,8 @@ import {
   Settings, 
   HelpCircle,
   ChevronLeft,
-  ChevronRight  
+  ChevronRight,
+  Brain
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -74,10 +75,10 @@ export function Sidebar() {
       <div className="p-4 flex items-center justify-between">
         {!isCollapsed && (
           <div className="flex items-center">
-            <div className="rounded-md bg-medical-300 p-1">
-              <Activity className="h-6 w-6 text-white" />
+            <div className="rounded-md bg-primary p-1">
+              <Brain className="h-6 w-6 text-white" />
             </div>
-            <span className="ml-2 font-semibold text-sidebar-foreground text-lg">RetinaScan</span>
+            <span className="ml-2 font-semibold text-sidebar-foreground text-lg">NeuroView</span>
           </div>
         )}
         <Button 

@@ -1,25 +1,24 @@
 
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from './components/layout/MainLayout';
 import Dashboard from './pages/Dashboard';
+import PatientsPage from './pages/PatientsPage';
 import AnalysisPage from './pages/AnalysisPage';
+import ResultsPage from './pages/ResultsPage';
+import ReportsPage from './pages/ReportsPage';
+import SettingsPage from './pages/SettingsPage';
+import HelpPage from './pages/HelpPage';
 import LoginPage from './pages/LoginPage';
 import NotFound from './pages/NotFound';
-
-// Placeholder components for routes we'll implement later
-const PatientsPage = () => <div>Patients page coming soon</div>;
-const ResultsPage = () => <div>Results page coming soon</div>;
-const ReportsPage = () => <div>Reports page coming soon</div>;
-const SettingsPage = () => <div>Settings page coming soon</div>;
-const HelpPage = () => <div>Help page coming soon</div>;
+import AuthPage from './pages/AuthPage';
 
 export const routes = createBrowserRouter([
   {
     path: '/login',
-    element: <LoginPage />,
+    element: <AuthPage />,
   },
   {
-    element: <MainLayout children={<Outlet />} />,
+    element: <MainLayout />,
     children: [
       {
         path: '/',

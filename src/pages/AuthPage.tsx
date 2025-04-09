@@ -8,7 +8,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, KeySquare, Lock, User, Shield } from "lucide-react";
+import { Eye, EyeOff, KeySquare, Lock, User, Shield, Brain } from "lucide-react";
 
 export default function AuthPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ export default function AuthPage() {
       } else {
         toast({
           title: "Login Successful",
-          description: "Welcome to RetinaScan InsightHub."
+          description: "Welcome to NeuroView."
         });
         navigate("/");
       }
@@ -55,26 +55,26 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-medical-100 to-white dark:from-gray-900 dark:to-gray-800 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-white dark:from-gray-900 dark:to-gray-800 p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-4">
-            <div className="bg-medical-500 p-2 rounded-lg">
-              <Shield className="h-6 w-6 text-white" />
+            <div className="bg-primary p-2 rounded-lg">
+              <Brain className="h-8 w-8 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">RetinaScan InsightHub</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">Secure medical diagnostic platform</p>
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">NeuroView</h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Advanced Neurological Diagnostic Platform</p>
         </div>
         
-        <Card className="w-full">
+        <Card className="w-full shadow-lg">
           <CardHeader>
-            <CardTitle className="text-center">
+            <CardTitle className="text-center text-2xl">
               {step === "login" ? "Authentication" : "Two-Factor Authentication"}
             </CardTitle>
             <CardDescription className="text-center">
               {step === "login" 
-                ? "Secure access to the diagnostic platform" 
+                ? "Secure access to medical neurological data" 
                 : "Enter the verification code sent to your device"}
             </CardDescription>
           </CardHeader>
@@ -92,7 +92,7 @@ export default function AuthPage() {
                 </TabsList>
                 
                 <TabsContent value="login">
-                  <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                  <form onSubmit={handleSubmit} className="space-y-4 mt-6">
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
                       <div className="relative">
@@ -100,7 +100,7 @@ export default function AuthPage() {
                         <Input
                           id="email"
                           type="email"
-                          placeholder="doctor@hospital.org"
+                          placeholder="neurologist@hospital.org"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           className="pl-9"
@@ -159,7 +159,7 @@ export default function AuthPage() {
                 </TabsContent>
                 
                 <TabsContent value="register">
-                  <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                  <form onSubmit={handleSubmit} className="space-y-4 mt-6">
                     <div className="space-y-2">
                       <Label htmlFor="reg-name">Full Name</Label>
                       <Input
@@ -174,7 +174,7 @@ export default function AuthPage() {
                       <Input
                         id="reg-email"
                         type="email"
-                        placeholder="doctor@hospital.org"
+                        placeholder="neurologist@hospital.org"
                         required
                       />
                     </div>
@@ -230,7 +230,7 @@ export default function AuthPage() {
             ) : (
               <div className="space-y-4">
                 <div className="flex justify-center mb-4">
-                  <KeySquare className="h-12 w-12 text-medical-500" />
+                  <KeySquare className="h-12 w-12 text-primary" />
                 </div>
                 <div className="text-center mb-4">
                   <p>We've sent a verification code to your device.</p>
@@ -269,7 +269,7 @@ export default function AuthPage() {
         </Card>
         
         <p className="text-center mt-8 text-sm text-gray-600 dark:text-gray-400">
-          Secure medical diagnostic system • HIPAA Compliant • 2FA Protected
+          Secure neurological diagnostic system • HIPAA Compliant • 2FA Protected
         </p>
       </div>
     </div>
