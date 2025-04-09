@@ -1,0 +1,38 @@
+
+import {
+  HelpCircle,
+} from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+interface ContextualHelpProps {
+  content: string;
+  size?: "sm" | "md" | "lg";
+}
+
+export function ContextualHelp({ content, size = "md" }: ContextualHelpProps) {
+  const iconSizes = {
+    sm: "h-3 w-3",
+    md: "h-4 w-4",
+    lg: "h-5 w-5",
+  };
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className="help-tooltip">
+            <HelpCircle className={iconSizes[size]} />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="top" sideOffset={5}>
+          <div className="max-w-xs">{content}</div>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
