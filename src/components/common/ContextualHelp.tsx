@@ -11,10 +11,11 @@ import {
 
 interface ContextualHelpProps {
   content: string;
+  title?: string;
   size?: "sm" | "md" | "lg";
 }
 
-export function ContextualHelp({ content, size = "md" }: ContextualHelpProps) {
+export function ContextualHelp({ content, title, size = "md" }: ContextualHelpProps) {
   const iconSizes = {
     sm: "h-3 w-3",
     md: "h-4 w-4",
@@ -30,6 +31,7 @@ export function ContextualHelp({ content, size = "md" }: ContextualHelpProps) {
           </div>
         </TooltipTrigger>
         <TooltipContent side="top" sideOffset={5}>
+          {title && <div className="font-medium mb-1">{title}</div>}
           <div className="max-w-xs">{content}</div>
         </TooltipContent>
       </Tooltip>
