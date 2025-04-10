@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
@@ -10,7 +11,11 @@ import {
   HelpCircle,
   ChevronLeft,
   ChevronRight,
-  Brain
+  Brain,
+  Bell,
+  BookOpen,
+  History,
+  HeartPulse
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -56,12 +61,18 @@ export function Sidebar() {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const sidebarItems = [
+  const mainItems = [
     { icon: LayoutDashboard, label: "Dashboard", to: "/" },
     { icon: Users, label: "Patients", to: "/patients" },
     { icon: FileImage, label: "Analysis", to: "/analysis" },
     { icon: Activity, label: "Results", to: "/results" },
     { icon: Send, label: "Reports", to: "/reports" },
+  ];
+  
+  const featureItems = [
+    { icon: Bell, label: "Notifications", to: "/notifications" },
+    { icon: BookOpen, label: "Knowledge Base", to: "/knowledge" },
+    { icon: HeartPulse, label: "Second Opinion", to: "/second-opinion" }
   ];
 
   return (
@@ -95,13 +106,34 @@ export function Sidebar() {
       
       <div className="flex-1 overflow-y-auto py-4">
         <nav className="space-y-1 px-2">
-          {sidebarItems.map((item) => (
+          {mainItems.map((item) => (
             <SidebarItem
               key={item.to}
               icon={item.icon}
               label={item.label}
               to={item.to}
               isActive={location.pathname === item.to}
+              isCollapsed={isCollapsed}
+            />
+          ))}
+        </nav>
+        
+        {!isCollapsed && (
+          <div className="px-3 pt-5 pb-2">
+            <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase tracking-wider">
+              Additional Features
+            </div>
+          </div>
+        )}
+        
+        <nav className="space-y-1 px-2">
+          {featureItems.map((item) => (
+            <SidebarItem
+              key={item.to}
+              icon={item.icon}
+              label={item.label}
+              to={item.to}
+              isActive={location.pathname.startsWith(item.to)}
               isCollapsed={isCollapsed}
             />
           ))}
