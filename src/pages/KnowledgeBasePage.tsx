@@ -12,9 +12,9 @@ export default function KnowledgeBasePage() {
   return (
     <div className="space-y-4">
       <PageHeader 
-        title="Knowledge Base" 
+        title="Ophthalmology Knowledge Base" 
         description="Educational resources, articles and reference materials"
-        helpContent="Browse articles, guides, and resources to learn more about different neurological conditions."
+        helpContent="Browse articles, guides, and resources to learn more about different eye conditions, diagnostic methods, and treatment approaches."
       />
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

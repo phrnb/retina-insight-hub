@@ -1,5 +1,5 @@
 
-import { Activity, FileImage, Users, Clock, Zap, BrainCircuit, ArrowUpRight } from "lucide-react";
+import { Activity, FileImage, Users, Clock, Zap, BrainCircuit, ArrowUpRight, Eye } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { PatientCard } from "@/components/dashboard/PatientCard";
@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ContextualHelp } from "@/components/common/ContextualHelp";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
+import { BarChart, Bar, AreaChart, Area, PieChart, Pie, LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Cell } from "recharts";
 
 // Mock data
 const patients = [
@@ -17,7 +19,7 @@ const patients = [
     age: 68,
     lastScan: "Today",
     status: "complete" as const,
-    diagnosis: "Multiple Sclerosis • Lesions detected • Stable condition"
+    diagnosis: "Glaucoma • Advanced • Under treatment"
   },
   {
     id: "p2",
@@ -25,7 +27,7 @@ const patients = [
     age: 72,
     lastScan: "Yesterday",
     status: "complete" as const,
-    diagnosis: "Alzheimer's Disease • Early stage • Treatment responsive"
+    diagnosis: "Diabetic Retinopathy • Mild NPDR • Monitoring"
   },
   {
     id: "p3",
@@ -53,7 +55,7 @@ const recentActivities = [
   {
     id: "a2",
     type: "upload" as const,
-    description: "Uploaded new MRI scan for Michael Brown",
+    description: "Uploaded new fundus image for Michael Brown",
     timestamp: "2 hours ago"
   },
   {
@@ -70,6 +72,40 @@ const recentActivities = [
   }
 ];
 
+// Chart data
+const diagnosisDistribution = [
+  { name: "Glaucoma", value: 35 },
+  { name: "Diabetic Retinopathy", value: 28 },
+  { name: "AMD", value: 22 },
+  { name: "Cataract", value: 15 },
+];
+
+const weeklyScans = [
+  { day: "Mon", scans: 12 },
+  { day: "Tue", scans: 19 },
+  { day: "Wed", scans: 15 },
+  { day: "Thu", scans: 22 },
+  { day: "Fri", scans: 18 },
+  { day: "Sat", scans: 8 },
+  { day: "Sun", scans: 5 },
+];
+
+const monthlyAnalytics = [
+  { month: "Jan", completed: 65, pending: 12 },
+  { month: "Feb", completed: 72, pending: 8 },
+  { month: "Mar", completed: 85, pending: 10 },
+  { month: "Apr", completed: 92, pending: 6 },
+];
+
+const accuracyTrend = [
+  { month: "Jan", accuracy: 88 },
+  { month: "Feb", accuracy: 90 },
+  { month: "Mar", accuracy: 93 },
+  { month: "Apr", accuracy: 95 },
+];
+
+const COLORS = ['#6E59A5', '#9b87f5', '#D3E4FD', '#E5DEFF'];
+
 export default function Dashboard() {
   const navigate = useNavigate();
   
@@ -78,7 +114,7 @@ export default function Dashboard() {
       <PageHeader 
         title="Dashboard" 
         description="Welcome back, Dr. Smith"
-        helpContent="This dashboard provides an overview of your recent patients, scans, and activities in the NeuroView system."
+        helpContent="This dashboard provides an overview of your recent patients, scans, and activities in the EyeView system."
       >
         <Button onClick={() => navigate("/analysis")}>New Analysis</Button>
       </PageHeader>
@@ -93,12 +129,12 @@ export default function Dashboard() {
           helpContent="Total number of unique patients in your care during the last 30 days."
         />
         <StatCard
-          title="Analyses Performed"
+          title="Eye Scans Analyzed"
           value="138"
-          icon={<BrainCircuit className="h-5 w-5" />}
+          icon={<Eye className="h-5 w-5" />}
           description="Last 30 days"
           trend={{ value: 8, isPositive: true }}
-          helpContent="Total number of neuro scan analyses performed in the last 30 days."
+          helpContent="Total number of eye scan analyses performed in the last 30 days."
         />
         <StatCard
           title="Analyses This Week"
@@ -113,7 +149,7 @@ export default function Dashboard() {
           icon={<Zap className="h-5 w-5" />}
           description="0.3s improvement"
           trend={{ value: 7, isPositive: true }}
-          helpContent="Average time to process a neural scan and return analysis results."
+          helpContent="Average time to process an eye scan and return analysis results."
         />
       </div>
 
@@ -121,34 +157,179 @@ export default function Dashboard() {
         <Card className="col-span-2">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-md font-medium">
-              Neural Activity Patterns
+              Weekly Scan Analysis
             </CardTitle>
             <ContextualHelp 
-              title="Neural Activity Analysis"
-              content="This chart shows neural activity patterns detected across patient scans over the past week."
+              title="Weekly Analysis"
+              content="This chart shows the number of eye scans analyzed each day of the current week."
             />
           </CardHeader>
           <CardContent>
-            <div className="h-[200px] w-full bg-muted/20 rounded-md flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">Neural activity visualization</p>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={weeklyScans}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="day" />
+                  <YAxis />
+                  <Tooltip 
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-background border rounded p-2 shadow">
+                            <p className="font-medium">{`${payload[0].payload.day}: ${payload[0].value} scans`}</p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }} 
+                  />
+                  <Bar dataKey="scans" fill="#6E59A5" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <p className="text-xs text-muted-foreground">Anomaly Detection Rate</p>
-                <p className="text-lg font-bold">24.3%</p>
-                <div className="flex items-center text-xs text-emerald-500">
-                  <ArrowUpRight className="h-3 w-3 mr-1" />
-                  <span>4.5% increase</span>
-                </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-md font-medium">
+              Diagnosis Distribution
+            </CardTitle>
+            <ContextualHelp 
+              title="Diagnosis Distribution"
+              content="Distribution of diagnoses across all patients in the current month."
+            />
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={diagnosisDistribution}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={70}
+                    outerRadius={90}
+                    paddingAngle={2}
+                    dataKey="value"
+                  >
+                    {diagnosisDistribution.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip 
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-background border rounded p-2 shadow">
+                            <p className="font-medium">{`${payload[0].name}: ${payload[0].value}%`}</p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }} 
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                {diagnosisDistribution.map((item, index) => (
+                  <div key={item.name} className="flex items-center text-xs">
+                    <div 
+                      className="w-3 h-3 mr-1 rounded-sm" 
+                      style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                    />
+                    <span>{item.name}</span>
+                  </div>
+                ))}
               </div>
-              <div className="space-y-1">
-                <p className="text-xs text-muted-foreground">Diagnosis Confidence</p>
-                <p className="text-lg font-bold">92.7%</p>
-                <div className="flex items-center text-xs text-emerald-500">
-                  <ArrowUpRight className="h-3 w-3 mr-1" />
-                  <span>1.2% increase</span>
-                </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      
+      <div className="grid gap-6 md:grid-cols-2 mb-8">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-md font-medium">
+              Monthly Analytics
+            </CardTitle>
+            <ContextualHelp 
+              title="Monthly Analytics"
+              content="Comparison of completed vs pending analyses over recent months."
+            />
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={monthlyAnalytics}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip 
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-background border rounded p-2 shadow">
+                            <p className="font-medium">{payload[0].payload.month}</p>
+                            <p className="text-sm text-primary">Completed: {payload[0].value}</p>
+                            <p className="text-sm text-muted-foreground">Pending: {payload[1].value}</p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }} 
+                  />
+                  <Area type="monotone" dataKey="completed" stroke="#6E59A5" fill="#9b87f5" fillOpacity={0.3} />
+                  <Area type="monotone" dataKey="pending" stroke="#E5DEFF" fill="#E5DEFF" fillOpacity={0.3} />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="flex items-center justify-center gap-4 mt-2">
+              <div className="flex items-center text-sm">
+                <div className="w-3 h-3 mr-1 rounded-sm bg-primary" />
+                <span>Completed</span>
               </div>
+              <div className="flex items-center text-sm">
+                <div className="w-3 h-3 mr-1 rounded-sm bg-muted" />
+                <span>Pending</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-md font-medium">
+              Diagnostic Accuracy Trend
+            </CardTitle>
+            <ContextualHelp 
+              title="Accuracy Trend"
+              content="Trend of diagnostic accuracy over recent months."
+            />
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={accuracyTrend}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="month" />
+                  <YAxis domain={[80, 100]} />
+                  <Tooltip 
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-background border rounded p-2 shadow">
+                            <p className="font-medium">{payload[0].payload.month}</p>
+                            <p className="text-sm">{`Accuracy: ${payload[0].value}%`}</p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }} 
+                  />
+                  <Line type="monotone" dataKey="accuracy" stroke="#6E59A5" strokeWidth={2} dot={{ fill: "#6E59A5" }} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
