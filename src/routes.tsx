@@ -8,7 +8,6 @@ import ResultsPage from './pages/ResultsPage';
 import ReportsPage from './pages/ReportsPage';
 import SettingsPage from './pages/SettingsPage';
 import HelpPage from './pages/HelpPage';
-import LoginPage from './pages/LoginPage';
 import NotFound from './pages/NotFound';
 import AuthPage from './pages/AuthPage';
 

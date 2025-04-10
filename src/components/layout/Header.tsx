@@ -12,10 +12,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
   
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +39,14 @@ export function Header() {
       title: "Help Center",
       description: "Contextual help features will be available in the next version."
     });
+  };
+
+  const handleLogout = () => {
+    toast({
+      title: "Logging out",
+      description: "You have been successfully logged out."
+    });
+    navigate('/login');
   };
 
   return (
@@ -72,7 +82,7 @@ export function Header() {
             <HelpCircle className="h-5 w-5" />
           </Button>
 
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" onClick={() => navigate('/settings')}>
             <Settings className="h-5 w-5" />
           </Button>
           
@@ -88,11 +98,11 @@ export function Header() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Activity Log</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')}>Profile</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')}>Settings</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')}>Activity Log</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
