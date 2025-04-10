@@ -37,6 +37,8 @@ services:
 
 networks:
   app-network:
+    driver: bridge
 
 volumes:
   postgres_data:
+    # Using named volumes works better across platforms
