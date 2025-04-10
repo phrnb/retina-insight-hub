@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Search } from "lucide-react";
+import { Search, BookOpen } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { KnowledgeArticleCard } from "./KnowledgeArticleCard";
