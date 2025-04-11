@@ -57,19 +57,19 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				medical: {
-					DEFAULT: '#394177',
-					50: '#F0EBF1',
-					100: '#E5DEFF',
-					200: '#D3E4FD',
-					300: '#8B93C7',
-					400: '#5D66A6',
-					500: '#394177',
-					600: '#2F356A',
-					700: '#252A56',
-					foreground: '#F1F0FB',
+					DEFAULT: '#1a67a3',
+					50: '#EBF5FD',
+					100: '#D6EBFA',
+					200: '#ADD7F5',
+					300: '#68B3E7',
+					400: '#2B8FD8',
+					500: '#1a67a3',
+					600: '#155892',
+					700: '#104776',
+					foreground: '#EBF5FD',
 				},
 				alert: {
-					DEFAULT: '#7B8CDE',
+					DEFAULT: '#4099E0',
 					foreground: '#FFFFFF',
 				},
 				sidebar: {
@@ -83,13 +83,14 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				palette: {
-					navy: '#394177',
-					indigo: '#5D66A6',
-					blue: '#7B8CDE',
-					lightBlue: '#8B93C7',
-					lavender: '#A5B0EC',
-					purple: '#6247AA',
-					lilac: '#D4C1EC',
+					navy: '#1a67a3',
+					indigo: '#2B8FD8',
+					blue: '#4099E0',
+					lightBlue: '#68B3E7',
+					skyBlue: '#ADD7F5',
+					royal: '#1653A4',
+					azure: '#82C5F3',
+					teal: '#3BA0C5',
 				}
 			},
 			borderRadius: {
@@ -99,7 +100,7 @@ export default {
 			},
 			boxShadow: {
 				'soft': '0 4px 20px rgba(0, 0, 0, 0.08)',
-				'glow': '0 0 15px rgba(123, 140, 222, 0.5)',
+				'glow': '0 0 15px rgba(64, 153, 224, 0.5)',
 			},
 			keyframes: {
 				'accordion-down': {
