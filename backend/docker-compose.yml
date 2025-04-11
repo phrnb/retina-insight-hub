@@ -3,22 +3,23 @@ version: '3.8'
 
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    volumes:
-      - ./:/app
     depends_on:
       - db
-    env_file:
-      - .env
+    volumes:
+      - ./app:/app/app
+      - ./uploads:/app/uploads
     environment:
       - DATABASE_URL=postgresql://postgres:password@db:5432/retinascan
-    networks:
-      - app-network
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-for-development}
+    restart: unless-stopped
 
   db:
-    image: postgres:15
+    image: postgres:16.1
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -27,18 +28,7 @@ services:
       - POSTGRES_DB=retinascan
     ports:
       - "5432:5432"
-    networks:
-      - app-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-networks:
-  app-network:
-    driver: bridge
+    restart: unless-stopped
 
 volumes:
   postgres_data:
-    # Using named volumes works better across platforms

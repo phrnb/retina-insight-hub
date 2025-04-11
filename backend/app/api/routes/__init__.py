@@ -1,3 +1,1 @@
-
-# Empty init to make the routes package importable
-
+# Import router modules

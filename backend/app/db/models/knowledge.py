@@ -1,53 +1,36 @@
 
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Text, Table, Boolean
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from app.db.database import Base
 
-# Association table for many-to-many relationship between articles and categories
-article_categories = Table(
-    "article_categories",
-    Base.metadata,
-    Column("article_id", Integer, ForeignKey("knowledge_articles.id")),
-    Column("category_id", Integer, ForeignKey("knowledge_categories.id"))
-)
-
 
 class KnowledgeCategory(Base):
     __tablename__ = "knowledge_categories"
-
+    
     id = Column(Integer, primary_key=True, index=True)
-    category_id = Column(String, unique=True)  # e.g., "glaucoma", "retinopathy"
-    name = Column(String)
+    name = Column(String, unique=True, index=True)
     description = Column(Text, nullable=True)
-    icon = Column(String, nullable=True)  # Icon name for UI
-
+    icon = Column(String, nullable=True)  # Icon name or path
+    
     # Relationships
-    articles = relationship(
-        "KnowledgeArticle", 
-        secondary=article_categories,
-        back_populates="categories"
-    )
+    articles = relationship("KnowledgeArticle", back_populates="category")
 
 
 class KnowledgeArticle(Base):
     __tablename__ = "knowledge_articles"
-
+    
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
+    title = Column(String, index=True)
     content = Column(Text)
     summary = Column(Text, nullable=True)
-    author = Column(String, nullable=True)
-    published_date = Column(DateTime(timezone=True), server_default=func.now())
-    updated_date = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
-    is_featured = Column(Boolean, default=False)
-    thumbnail_url = Column(String, nullable=True)
-    read_time_minutes = Column(Integer, nullable=True)
-
+    category_id = Column(Integer, ForeignKey("knowledge_categories.id"))
+    author_id = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    is_published = Column(Boolean, default=True)
+    
     # Relationships
-    categories = relationship(
-        "KnowledgeCategory", 
-        secondary=article_categories,
-        back_populates="articles"
-    )
+    category = relationship("KnowledgeCategory", back_populates="articles")
+    author = relationship("User")
