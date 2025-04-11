@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -57,19 +56,19 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				medical: {
-					DEFAULT: '#1a67a3',
-					50: '#EBF5FD',
-					100: '#D6EBFA',
-					200: '#ADD7F5',
-					300: '#68B3E7',
-					400: '#2B8FD8',
-					500: '#1a67a3',
-					600: '#155892',
-					700: '#104776',
-					foreground: '#EBF5FD',
+					DEFAULT: '#72676F',
+					50: '#F7F6F7',
+					100: '#E9E7E8',
+					200: '#D3CFD2',
+					300: '#B0A6A7',
+					400: '#9A8D96',
+					500: '#72676F',
+					600: '#51403D',
+					700: '#30333A',
+					foreground: '#F7F6F7',
 				},
 				alert: {
-					DEFAULT: '#4099E0',
+					DEFAULT: '#9A8D96',
 					foreground: '#FFFFFF',
 				},
 				sidebar: {
@@ -83,14 +82,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				palette: {
-					navy: '#1a67a3',
-					indigo: '#2B8FD8',
-					blue: '#4099E0',
-					lightBlue: '#68B3E7',
-					skyBlue: '#ADD7F5',
-					royal: '#1653A4',
-					azure: '#82C5F3',
-					teal: '#3BA0C5',
+					mauve: '#72676F',
+					dustyRose: '#9A8D96',
+					stone: '#B0A6A7',
+					taupe: '#B79D9B',
+					brown: '#51403D',
+					charcoal: '#30333A',
 				}
 			},
 			borderRadius: {

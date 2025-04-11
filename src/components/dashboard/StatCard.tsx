@@ -25,7 +25,7 @@ export function StatCard({ title, value, icon, description, helpContent, trend }
             {helpContent && <ContextualHelp content={helpContent} size="sm" />}
           </div>
         </CardTitle>
-        <div className="h-8 w-8 rounded-md bg-medical-100 p-1.5 text-medical-500">
+        <div className="h-8 w-8 rounded-md bg-palette-stone/30 p-1.5 text-palette-mauve">
           {icon}
         </div>
       </CardHeader>

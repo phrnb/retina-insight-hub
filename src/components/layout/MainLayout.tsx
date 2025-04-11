@@ -11,7 +11,7 @@ interface MainLayoutProps {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-background dark:bg-gradient-to-br dark:from-slate-900 dark:to-palette-navy">
+    <div className="flex h-screen w-full overflow-hidden bg-background dark:bg-gradient-to-br dark:from-palette-charcoal dark:to-palette-brown">
       {/* Optional subtle background pattern */}
       <div className="absolute inset-0 bg-grid-slate-100 dark:bg-grid-slate-800 bg-[length:20px_20px] opacity-[0.03] pointer-events-none"></div>
       

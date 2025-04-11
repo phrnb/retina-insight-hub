@@ -50,14 +50,14 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-white/90 dark:bg-palette-navy/90 border-b border-slate-200/50 dark:border-slate-700/50 px-4 py-3 sm:px-6 medical-glass shadow-sm">
+    <header className="sticky top-0 z-30 w-full bg-white/90 dark:bg-palette-charcoal/90 border-b border-slate-200/50 dark:border-slate-700/50 px-4 py-3 sm:px-6 medical-glass shadow-sm">
       <div className="flex h-full items-center justify-between">
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
-            <div className="p-1 rounded-md bg-primary/10">
-              <Brain className="h-5 w-5 text-primary" />
+            <div className="p-1 rounded-md bg-palette-mauve/10">
+              <Brain className="h-5 w-5 text-palette-mauve" />
             </div>
-            <div className="font-semibold text-lg text-primary">Neuro</div>
+            <div className="font-semibold text-lg text-palette-mauve">Neuro</div>
             <div className="font-medium text-lg">View</div>
           </div>
         </div>
@@ -68,26 +68,26 @@ export function Header() {
             <Input
               type="search"
               placeholder="Search patients..."
-              className="h-9 pl-10 pr-4 border-slate-200 dark:border-slate-700 focus-visible:ring-primary bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
+              className="h-9 pl-10 pr-4 border-slate-200 dark:border-slate-700 focus-visible:ring-palette-mauve bg-white/50 dark:bg-palette-charcoal/50 backdrop-blur-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <Button type="submit" size="sm" variant="ghost" className="hover:bg-primary/10">
+          <Button type="submit" size="sm" variant="ghost" className="hover:bg-palette-mauve/10">
             <Search className="h-4 w-4" />
           </Button>
         </form>
         
         <div className="flex items-center space-x-1 sm:space-x-3">
-          <Button variant="ghost" size="icon" onClick={handleNotificationClick} className="hover:bg-primary/10 rounded-full">
+          <Button variant="ghost" size="icon" onClick={handleNotificationClick} className="hover:bg-palette-mauve/10 rounded-full">
             <Bell className="h-5 w-5" />
           </Button>
           
-          <Button variant="ghost" size="icon" onClick={handleHelpClick} className="hover:bg-primary/10 rounded-full">
+          <Button variant="ghost" size="icon" onClick={handleHelpClick} className="hover:bg-palette-mauve/10 rounded-full">
             <HelpCircle className="h-5 w-5" />
           </Button>
 
-          <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} className="hover:bg-primary/10 rounded-full">
+          <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} className="hover:bg-palette-mauve/10 rounded-full">
             <Settings className="h-5 w-5" />
           </Button>
           
@@ -95,19 +95,19 @@ export function Header() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative h-8 rounded-full ml-2">
                 <span className="sr-only">User menu</span>
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary/10 text-primary">
+                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-palette-mauve/10 text-palette-mauve">
                   <User className="h-4 w-4" />
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-slate-200 dark:border-slate-700 shadow-lg animation-fade-in">
+            <DropdownMenuContent align="end" className="w-56 bg-white/90 dark:bg-palette-charcoal/90 backdrop-blur-md border-slate-200 dark:border-slate-700 shadow-lg animation-fade-in">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-primary/10">Profile</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-primary/10">Settings</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-primary/10">Activity Log</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Profile</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Settings</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Activity Log</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="cursor-pointer hover:bg-primary/10">Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout} className="cursor-pointer hover:bg-palette-mauve/10">Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

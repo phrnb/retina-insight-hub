@@ -13,10 +13,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em rgba(26, 103, 163, 0.6));
+  filter: drop-shadow(0 0 2em rgba(114, 103, 111, 0.6));
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em rgba(43, 143, 216, 0.6));
+  filter: drop-shadow(0 0 2em rgba(154, 141, 150, 0.6));
 }
 
 @keyframes logo-spin {
@@ -47,12 +47,12 @@
 }
 
 .read-the-docs {
-  color: #1a67a3;
+  color: #72676F;
   font-size: 0.875rem;
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #104776 0%, #1a67a3 50%, #4099E0 100%);
+  background: linear-gradient(135deg, #51403D 0%, #72676F 50%, #9A8D96 100%);
 }
 
 /* Improved glass effect */

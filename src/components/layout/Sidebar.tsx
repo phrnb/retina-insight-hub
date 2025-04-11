@@ -48,7 +48,7 @@ function SidebarItem({ icon: Icon, label, to, isActive, isCollapsed }: SidebarIt
           </Link>
         </TooltipTrigger>
         {isCollapsed && (
-          <TooltipContent side="right" className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md">
+          <TooltipContent side="right" className="bg-white/90 dark:bg-palette-charcoal/90 backdrop-blur-md">
             <p>{label}</p>
           </TooltipContent>
         )}
@@ -78,7 +78,7 @@ export function Sidebar() {
   return (
     <div 
       className={cn(
-        "bg-primary relative h-screen flex flex-col border-r border-white/10 transition-all duration-300 ease-in-out",
+        "bg-palette-mauve relative h-screen flex flex-col border-r border-white/10 transition-all duration-300 ease-in-out",
         isCollapsed ? "w-16" : "w-64"
       )}
     >
