@@ -39,8 +39,8 @@ function SidebarItem({ icon: Icon, label, to, isActive, isCollapsed }: SidebarIt
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
               isActive
-                ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+                ? "bg-palette-beige/20 text-palette-beige"
+                : "text-sidebar-foreground hover:bg-palette-beige/10 hover:text-palette-beige"
             )}
           >
             <Icon className="w-5 h-5" />
@@ -78,24 +78,24 @@ export function Sidebar() {
   return (
     <div 
       className={cn(
-        "bg-sidebar relative h-screen flex flex-col border-r border-sidebar-border transition-all duration-300 ease-in-out",
+        "bg-palette-navy relative h-screen flex flex-col border-r border-palette-mauve/30 transition-all duration-300 ease-in-out",
         isCollapsed ? "w-16" : "w-64"
       )}
     >
       <div className="p-4 flex items-center justify-between">
         {!isCollapsed && (
           <div className="flex items-center">
-            <div className="rounded-md bg-primary p-1">
-              <Brain className="h-6 w-6 text-white" />
+            <div className="rounded-md bg-palette-beige p-1">
+              <Brain className="h-6 w-6 text-palette-navy" />
             </div>
-            <span className="ml-2 font-semibold text-sidebar-foreground text-lg">NeuroView</span>
+            <span className="ml-2 font-semibold text-palette-beige text-lg">NeuroView</span>
           </div>
         )}
         <Button 
           variant="ghost" 
           size="sm" 
           className={cn(
-            "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground",
+            "text-palette-beige hover:bg-palette-beige/10 hover:text-white",
             isCollapsed ? "mx-auto" : "ml-auto"
           )}
           onClick={() => setIsCollapsed(!isCollapsed)}
@@ -120,7 +120,7 @@ export function Sidebar() {
         
         {!isCollapsed && (
           <div className="px-3 pt-5 pb-2">
-            <div className="text-xs font-semibold text-sidebar-foreground/70 uppercase tracking-wider">
+            <div className="text-xs font-semibold text-palette-gray/70 uppercase tracking-wider">
               Additional Features
             </div>
           </div>
@@ -140,7 +140,7 @@ export function Sidebar() {
         </nav>
       </div>
       
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-4 border-t border-palette-mauve/30">
         <nav className="space-y-1">
           <SidebarItem
             icon={Settings}

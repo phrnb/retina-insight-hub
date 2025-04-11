@@ -50,12 +50,12 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3 sm:px-6 medical-glass">
+    <header className="sticky top-0 z-30 w-full bg-white dark:bg-palette-navy border-b border-palette-gray/20 dark:border-palette-mauve/20 px-4 py-3 sm:px-6 medical-glass">
       <div className="flex h-full items-center justify-between">
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
-            <Brain className="h-5 w-5 text-primary" />
-            <div className="font-semibold text-lg text-primary">Neuro</div>
+            <Brain className="h-5 w-5 text-palette-mauve" />
+            <div className="font-semibold text-lg text-palette-mauve">Neuro</div>
             <div className="font-medium text-lg">View</div>
           </div>
         </div>
@@ -64,7 +64,7 @@ export function Header() {
           <Input
             type="search"
             placeholder="Search patients..."
-            className="h-9"
+            className="h-9 border-palette-gray/30 focus-visible:ring-palette-mauve"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -90,7 +90,7 @@ export function Header() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative h-8 rounded-full">
                 <span className="sr-only">User menu</span>
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary/20 text-primary">
+                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-palette-beige/20 text-palette-mauve">
                   <User className="h-4 w-4" />
                 </div>
               </Button>
