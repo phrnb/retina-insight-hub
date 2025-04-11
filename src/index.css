@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,73 +14,73 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 270 18% 35%;
+    --primary: 244 50% 40%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 260 11% 50%;
+    --secondary: 244 30% 60%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 266 21% 92%;
-    --accent-foreground: 265 20% 30%;
+    --accent: 244 40% 92%;
+    --accent-foreground: 244 50% 30%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 270 18% 35%;
+    --ring: 244 50% 40%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 270 18% 35%;
+    --sidebar-background: 244 50% 40%;
     --sidebar-foreground: 240 5.3% 96%;
     --sidebar-primary: 240 5.9% 100%;
-    --sidebar-primary-foreground: 270 18% 35%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 270 10% 40%;
-    --sidebar-ring: 270 18% 35%;
+    --sidebar-primary-foreground: 244 50% 40%;
+    --sidebar-accent: 244 42% 35%;
+    --sidebar-accent-foreground: 240 5.9% 100%;
+    --sidebar-border: 244 40% 45%;
+    --sidebar-ring: 244 50% 40%;
   }
 
   .dark {
-    --background: 280 15% 15%;
+    --background: 244 30% 15%;
     --foreground: 210 40% 98%;
 
-    --card: 280 15% 15%;
+    --card: 244 30% 15%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 280 15% 15%;
+    --popover: 244 30% 15%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 270 18% 35%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 244 50% 40%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 260 11% 50%;
+    --secondary: 244 30% 60%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 270 10% 25%;
+    --muted: 244 25% 25%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 270 10% 25%;
+    --accent: 244 25% 25%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 270 10% 25%;
-    --input: 270 10% 25%;
-    --ring: 270 18% 35%;
+    --border: 244 25% 25%;
+    --input: 244 25% 25%;
+    --ring: 244 50% 40%;
     
-    --sidebar-background: 280 15% 15%;
+    --sidebar-background: 244 30% 15%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 10% 25%;
+    --sidebar-accent: 244 25% 25%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 270 10% 25%;
+    --sidebar-border: 244 25% 25%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -90,7 +91,11 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
   }
 }
 
@@ -100,7 +105,7 @@
   }
 
   .medical-glass {
-    @apply bg-white/75 dark:bg-black/20 backdrop-blur-sm border border-white/20 dark:border-white/10 rounded-lg shadow-md;
+    @apply bg-white/85 dark:bg-black/20 backdrop-blur-md border border-white/30 dark:border-white/10 rounded-lg shadow-lg;
   }
 
   .analysis-status {
@@ -122,4 +127,38 @@
   .heatmap-overlay {
     @apply absolute inset-0 opacity-70 mix-blend-screen pointer-events-none transition-opacity duration-300;
   }
+  
+  /* New animations and styling utilities */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .card-gradient {
+    @apply bg-gradient-to-br from-card to-accent/30 backdrop-blur-sm;
+  }
+  
+  .btn-gradient {
+    @apply bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70;
+  }
+}
+
+/* Add new keyframes and animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
 }

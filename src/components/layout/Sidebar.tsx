@@ -37,10 +37,10 @@ function SidebarItem({ icon: Icon, label, to, isActive, isCollapsed }: SidebarIt
           <Link
             to={to}
             className={cn(
-              "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
+              "flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200",
               isActive
-                ? "bg-palette-beige/20 text-palette-beige"
-                : "text-sidebar-foreground hover:bg-palette-beige/10 hover:text-palette-beige"
+                ? "bg-white/20 text-white font-medium"
+                : "text-sidebar-foreground/90 hover:bg-white/10 hover:text-white"
             )}
           >
             <Icon className="w-5 h-5" />
@@ -48,7 +48,7 @@ function SidebarItem({ icon: Icon, label, to, isActive, isCollapsed }: SidebarIt
           </Link>
         </TooltipTrigger>
         {isCollapsed && (
-          <TooltipContent side="right">
+          <TooltipContent side="right" className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md">
             <p>{label}</p>
           </TooltipContent>
         )}
@@ -78,24 +78,24 @@ export function Sidebar() {
   return (
     <div 
       className={cn(
-        "bg-palette-navy relative h-screen flex flex-col border-r border-palette-mauve/30 transition-all duration-300 ease-in-out",
+        "bg-primary relative h-screen flex flex-col border-r border-white/10 transition-all duration-300 ease-in-out",
         isCollapsed ? "w-16" : "w-64"
       )}
     >
       <div className="p-4 flex items-center justify-between">
         {!isCollapsed && (
           <div className="flex items-center">
-            <div className="rounded-md bg-palette-beige p-1">
-              <Brain className="h-6 w-6 text-palette-navy" />
+            <div className="rounded-md bg-white/20 p-1.5">
+              <Brain className="h-5 w-5 text-white" />
             </div>
-            <span className="ml-2 font-semibold text-palette-beige text-lg">NeuroView</span>
+            <span className="ml-2 font-semibold text-white text-lg">NeuroView</span>
           </div>
         )}
         <Button 
           variant="ghost" 
           size="sm" 
           className={cn(
-            "text-palette-beige hover:bg-palette-beige/10 hover:text-white",
+            "text-white hover:bg-white/10 hover:text-white",
             isCollapsed ? "mx-auto" : "ml-auto"
           )}
           onClick={() => setIsCollapsed(!isCollapsed)}
@@ -104,7 +104,7 @@ export function Sidebar() {
         </Button>
       </div>
       
-      <div className="flex-1 overflow-y-auto py-4">
+      <div className="flex-1 overflow-y-auto py-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
         <nav className="space-y-1 px-2">
           {mainItems.map((item) => (
             <SidebarItem
@@ -119,8 +119,8 @@ export function Sidebar() {
         </nav>
         
         {!isCollapsed && (
-          <div className="px-3 pt-5 pb-2">
-            <div className="text-xs font-semibold text-palette-gray/70 uppercase tracking-wider">
+          <div className="px-3 pt-6 pb-2">
+            <div className="text-xs font-semibold text-white/60 uppercase tracking-wider">
               Additional Features
             </div>
           </div>
@@ -140,7 +140,7 @@ export function Sidebar() {
         </nav>
       </div>
       
-      <div className="p-4 border-t border-palette-mauve/30">
+      <div className="p-4 border-t border-white/10">
         <nav className="space-y-1">
           <SidebarItem
             icon={Settings}

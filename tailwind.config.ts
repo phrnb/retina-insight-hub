@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -53,20 +57,20 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				medical: {
-					DEFAULT: '#30353A',
+					DEFAULT: '#394177',
 					50: '#F0EBF1',
 					100: '#E5DEFF',
 					200: '#D3E4FD',
-					300: '#9A8D95',
-					400: '#72676F',
-					500: '#30353A',
-					600: '#72676F',
-					700: '#30353A',
+					300: '#8B93C7',
+					400: '#5D66A6',
+					500: '#394177',
+					600: '#2F356A',
+					700: '#252A56',
 					foreground: '#F1F0FB',
 				},
 				alert: {
-					DEFAULT: '#B79D9B',
-					foreground: '#30353A',
+					DEFAULT: '#7B8CDE',
+					foreground: '#FFFFFF',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -79,18 +83,23 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				palette: {
-					navy: '#30353A',
-					mauve: '#72676F',
-					gray: '#9A8D95',
-					beige: '#B0A8A7',
-					blush: '#B79D9B',
-					brown: '#91403D',
+					navy: '#394177',
+					indigo: '#5D66A6',
+					blue: '#7B8CDE',
+					lightBlue: '#8B93C7',
+					lavender: '#A5B0EC',
+					purple: '#6247AA',
+					lilac: '#D4C1EC',
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'soft': '0 4px 20px rgba(0, 0, 0, 0.08)',
+				'glow': '0 0 15px rgba(123, 140, 222, 0.5)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -136,6 +145,14 @@ export default {
 					'50%': {
 						opacity: '0.7'
 					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'50%': {
+						transform: 'translateY(-5px)'
+					}
 				}
 			},
 			animation: {
@@ -143,7 +160,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-out': 'fade-out 0.3s ease-out',
-				'pulse-medical': 'pulse-medical 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+				'pulse-medical': 'pulse-medical 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'float': 'float 3s ease-in-out infinite'
 			}
 		}
 	},

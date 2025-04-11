@@ -13,10 +13,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em rgba(114, 103, 111, 0.6));
+  filter: drop-shadow(0 0 2em rgba(97, 102, 177, 0.6));
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em rgba(154, 141, 149, 0.6));
+  filter: drop-shadow(0 0 2em rgba(123, 140, 222, 0.6));
 }
 
 @keyframes logo-spin {
@@ -36,12 +36,52 @@
 
 .card {
   padding: 2em;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
 
 .read-the-docs {
-  color: #72676F;
+  color: #5D66A6;
+  font-size: 0.875rem;
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #30353A 0%, #72676F 50%, #B79D9B 100%);
+  background: linear-gradient(135deg, #394177 0%, #5D66A6 50%, #7B8CDE 100%);
+}
+
+/* Improved glass effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Button hover effect */
+.btn-hover-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-hover-effect:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.btn-hover-effect:hover:after {
+  transform: translateX(100%);
 }
