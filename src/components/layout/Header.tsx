@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Bell, Brain, HelpCircle, Search, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,40 +12,37 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useApi } from "@/pages/Index";
 
 export function Header() {
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const { updateToken } = useApi();
   
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Search feature",
-      description: "Patient search will be implemented in the next version.",
+      title: "Searching...",
+      description: `Searching for: ${searchQuery}`
     });
   };
 
   const handleNotificationClick = () => {
-    toast({
-      title: "No new notifications",
-      description: "You're all caught up!"
-    });
+    navigate('/notifications');
   };
 
   const handleHelpClick = () => {
-    toast({
-      title: "Help Center",
-      description: "Contextual help features will be available in the next version."
-    });
+    navigate('/help');
   };
 
   const handleLogout = () => {
+    updateToken(null);
+    navigate('/login');
     toast({
-      title: "Logging out",
+      title: "Logged out",
       description: "You have been successfully logged out."
     });
-    navigate('/login');
   };
 
   return (

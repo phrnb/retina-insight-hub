@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, KeySquare } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useApi } from "@/pages/Index";
 
 export function AuthForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,28 +17,50 @@ export function AuthForm() {
   const [verificationCode, setVerificationCode] = useState("");
   const [step, setStep] = useState<"login" | "2fa">("login");
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { post, updateToken } = useApi();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate login process
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
       if (step === "login") {
-        setStep("2fa");
-        toast({
-          title: "Verification Required",
-          description: "Please enter the code sent to your device."
-        });
+        const response = await post("/auth/login", { email, password });
+        if (response.access_token) {
+          setStep("2fa");
+          toast({
+            title: "Verification Required",
+            description: "Please enter the code sent to your device."
+          });
+        }
       } else {
-        toast({
-          title: "Login Successful",
-          description: "Welcome back, Dr. Smith."
-        });
-        window.location.href = "/";
+        // Verify 2FA code
+        // For demo, we'll simulate 2FA verification
+        if (verificationCode.length === 6) {
+          updateToken("demo-token");
+          toast({
+            title: "Login Successful",
+            description: "Welcome back to the system."
+          });
+          navigate('/');
+        } else {
+          toast({
+            title: "Invalid Code",
+            description: "Please enter a valid 6-digit code.",
+            variant: "destructive"
+          });
+        }
       }
-    }, 1500);
+    } catch (error) {
+      toast({
+        title: "Login Failed",
+        description: "Please check your credentials and try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
