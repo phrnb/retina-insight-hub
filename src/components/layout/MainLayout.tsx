@@ -3,13 +3,22 @@ import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
+import { useApi } from "@/pages/Index";
+import { useEffect } from "react";
 
 interface MainLayoutProps {
   children?: React.ReactNode;
 }
 
 export function MainLayout({ children }: MainLayoutProps) {
+  const { isAuthenticated } = useApi();
+
+  // If not authenticated, redirect to login
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background dark:bg-gradient-to-br dark:from-palette-charcoal dark:to-palette-brown">
       {/* Optional subtle background pattern */}
