@@ -1,20 +1,13 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Search, UserPlus, Filter, FileText, Calendar, Brain } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/common/PageHeader";
 import { ContextualHelp } from "@/components/common/ContextualHelp";
-import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PatientActions } from "@/components/patient/PatientActions";
+import { PatientFilters } from "@/components/patient/PatientFilters";
+import { PatientTable } from "@/components/patient/PatientTable";
+import { PatientStats } from "@/components/patient/PatientStats";
+import { UserPlus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Sample patient data
 const samplePatients = [
@@ -66,138 +59,40 @@ export default function PatientsPage() {
         description="View and manage neurological patient records"
       />
       
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
-        <form onSubmit={handleSearch} className="flex w-full max-w-sm items-center space-x-2">
-          <Input
-            placeholder="Search patients..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1"
-          />
-          <Button type="submit" variant="outline" size="icon">
-            <Search className="h-4 w-4" />
-          </Button>
-        </form>
-        
-        <div className="flex space-x-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="flex gap-2">
-                <Filter className="h-4 w-4" />
-                Filter
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem>All Patients</DropdownMenuItem>
-              <DropdownMenuItem>Recent Patients</DropdownMenuItem>
-              <DropdownMenuItem>Critical Patients</DropdownMenuItem>
-              <DropdownMenuItem>By Diagnosis</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Button size="sm" className="flex gap-2">
-            <UserPlus className="h-4 w-4" />
-            New Patient
-          </Button>
+      <PatientFilters
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        handleSearch={handleSearch}
+      />
+
+      <Tabs defaultValue="all" onValueChange={setActiveTab} className="mb-4">
+        <TabsList>
+          <TabsTrigger value="all">All Patients</TabsTrigger>
+          <TabsTrigger value="critical">Critical</TabsTrigger>
+          <TabsTrigger value="stable">Stable</TabsTrigger>
+          <TabsTrigger value="recent">Recent</TabsTrigger>
+        </TabsList>
+      </Tabs>
+
+      <PatientTable
+        patients={filteredPatients}
+        getStatusBadge={getStatusBadge}
+      />
+      
+      <div className="mt-4 flex justify-between items-center text-sm text-muted-foreground">
+        <div>Showing {filteredPatients.length} of {samplePatients.length} patients</div>
+        <div className="flex items-center gap-4">
+          <div>
+            <span className="font-medium">Page</span> 1 of 1
+          </div>
+          <div className="flex gap-1">
+            <Button variant="outline" size="sm" disabled>&lt;</Button>
+            <Button variant="outline" size="sm" disabled>&gt;</Button>
+          </div>
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex justify-between items-center">
-            <span>Neurological Patient List</span>
-            <ContextualHelp
-              title="Patient Management"
-              content="View all patients, search by name or ID, and add new patient records. Click on a patient row to view their complete medical history and brain scans."
-            />
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Tabs defaultValue="all" onValueChange={setActiveTab} className="mb-4">
-            <TabsList>
-              <TabsTrigger value="all">All Patients</TabsTrigger>
-              <TabsTrigger value="critical">Critical</TabsTrigger>
-              <TabsTrigger value="stable">Stable</TabsTrigger>
-              <TabsTrigger value="recent">Recent</TabsTrigger>
-            </TabsList>
-          </Tabs>
-
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Patient ID</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Age</TableHead>
-                  <TableHead>Last Visit</TableHead>
-                  <TableHead>Diagnosis</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredPatients.length > 0 ? (
-                  filteredPatients.map((patient) => (
-                    <TableRow key={patient.id} className="cursor-pointer hover:bg-muted/50">
-                      <TableCell className="font-medium">{patient.id}</TableCell>
-                      <TableCell>{patient.name}</TableCell>
-                      <TableCell>{patient.age}</TableCell>
-                      <TableCell>{patient.lastVisit}</TableCell>
-                      <TableCell>{patient.diagnosis}</TableCell>
-                      <TableCell>{getStatusBadge(patient.status)}</TableCell>
-                      <TableCell className="text-right">
-                        <PatientActions patientId={patient.id} />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={7} className="text-center py-4">
-                      No patients found matching your search
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-          
-          <div className="mt-4 flex justify-between items-center text-sm text-muted-foreground">
-            <div>Showing {filteredPatients.length} of {samplePatients.length} patients</div>
-            <div className="flex items-center gap-4">
-              <div>
-                <span className="font-medium">Page</span> 1 of 1
-              </div>
-              <div className="flex gap-1">
-                <Button variant="outline" size="sm" disabled>&lt;</Button>
-                <Button variant="outline" size="sm" disabled>&gt;</Button>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Patient Demographics</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-64 bg-muted/20 rounded-md flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">Age distribution chart</p>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Diagnosis Distribution</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-64 bg-muted/20 rounded-md flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">Diagnosis pie chart</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <PatientStats />
     </div>
   );
 }
