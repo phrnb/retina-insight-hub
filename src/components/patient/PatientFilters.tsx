@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, UserPlus } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
