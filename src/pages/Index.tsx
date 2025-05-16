@@ -9,7 +9,15 @@ export const API_BASE_URL = "http://localhost:8000/api";
 // Custom hook for API communication
 export const useApi = () => {
   const { toast } = useToast();
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(() => {
+    // Set a default token for demo purposes if none exists
+    const storedToken = localStorage.getItem('token');
+    if (!storedToken) {
+      localStorage.setItem('token', 'demo-token');
+      return 'demo-token';
+    }
+    return storedToken;
+  });
   
   useEffect(() => {
     // Update token when it changes in localStorage
