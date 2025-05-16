@@ -14,7 +14,6 @@ import {
   Brain,
   Bell,
   BookOpen,
-  History,
   HeartPulse
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -62,17 +61,17 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const mainItems = [
-    { icon: LayoutDashboard, label: "Dashboard", to: "/" },
-    { icon: Users, label: "Patients", to: "/patients" },
-    { icon: FileImage, label: "Analysis", to: "/analysis" },
-    { icon: Activity, label: "Results", to: "/results" },
-    { icon: Send, label: "Reports", to: "/reports" },
+    { icon: LayoutDashboard, label: "Панель управления", to: "/" },
+    { icon: Users, label: "Пациенты", to: "/patients" },
+    { icon: FileImage, label: "Анализ", to: "/analysis" },
+    { icon: Activity, label: "Результаты", to: "/results" },
+    { icon: Send, label: "Отчеты", to: "/reports" },
   ];
   
   const featureItems = [
-    { icon: Bell, label: "Notifications", to: "/notifications" },
-    { icon: BookOpen, label: "Knowledge Base", to: "/knowledge" },
-    { icon: HeartPulse, label: "Second Opinion", to: "/second-opinion" }
+    { icon: Bell, label: "Уведомления", to: "/notifications" },
+    { icon: BookOpen, label: "База знаний", to: "/knowledge" },
+    { icon: HeartPulse, label: "Второе мнение", to: "/second-opinion" }
   ];
 
   return (
@@ -88,7 +87,7 @@ export function Sidebar() {
             <div className="rounded-md bg-white/20 p-1.5">
               <Brain className="h-5 w-5 text-white" />
             </div>
-            <span className="ml-2 font-semibold text-white text-lg">NeuroView</span>
+            <span className="ml-2 font-semibold text-white text-lg">НейроВью</span>
           </div>
         )}
         <Button 
@@ -121,7 +120,7 @@ export function Sidebar() {
         {!isCollapsed && (
           <div className="px-3 pt-6 pb-2">
             <div className="text-xs font-semibold text-white/60 uppercase tracking-wider">
-              Additional Features
+              Дополнительные функции
             </div>
           </div>
         )}
@@ -144,14 +143,14 @@ export function Sidebar() {
         <nav className="space-y-1">
           <SidebarItem
             icon={Settings}
-            label="Settings"
+            label="Настройки"
             to="/settings"
             isActive={location.pathname === "/settings"}
             isCollapsed={isCollapsed}
           />
           <SidebarItem
             icon={HelpCircle}
-            label="Help"
+            label="Помощь"
             to="/help"
             isActive={location.pathname === "/help"}
             isCollapsed={isCollapsed}

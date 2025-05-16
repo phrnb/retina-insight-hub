@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Bell, Brain, HelpCircle, Search, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,8 +24,8 @@ export function Header() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Searching...",
-      description: `Searching for: ${searchQuery}`
+      title: "Поиск...",
+      description: `Поиск: ${searchQuery}`
     });
   };
 
@@ -40,8 +41,8 @@ export function Header() {
     // Set a demo token to keep the app functional while testing
     updateToken("demo-token");
     toast({
-      title: "Demo Mode",
-      description: "Navigation enabled for demonstration purposes."
+      title: "Демо режим",
+      description: "Навигация включена для демонстрационных целей."
     });
     // Don't navigate away - stay on current page
     // navigate('/login');
@@ -55,8 +56,8 @@ export function Header() {
             <div className="p-1 rounded-md bg-palette-mauve/10">
               <Brain className="h-5 w-5 text-palette-mauve" />
             </div>
-            <div className="font-semibold text-lg text-palette-mauve">Neuro</div>
-            <div className="font-medium text-lg">View</div>
+            <div className="font-semibold text-lg text-palette-mauve">Нейро</div>
+            <div className="font-medium text-lg">Вью</div>
           </div>
         </div>
         
@@ -65,7 +66,7 @@ export function Header() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search patients..."
+              placeholder="Поиск пациентов..."
               className="h-9 pl-10 pr-4 border-slate-200 dark:border-slate-700 focus-visible:ring-palette-mauve bg-white/50 dark:bg-palette-charcoal/50 backdrop-blur-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -92,20 +93,20 @@ export function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="relative h-8 rounded-full ml-2">
-                <span className="sr-only">User menu</span>
+                <span className="sr-only">Меню пользователя</span>
                 <div className="flex items-center justify-center h-8 w-8 rounded-full bg-palette-mauve/10 text-palette-mauve">
                   <User className="h-4 w-4" />
                 </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 bg-white/90 dark:bg-palette-charcoal/90 backdrop-blur-md border-slate-200 dark:border-slate-700 shadow-lg animation-fade-in">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>Мой аккаунт</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Profile</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Settings</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Activity Log</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Профиль</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Настройки</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')} className="cursor-pointer hover:bg-palette-mauve/10">Журнал активности</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="cursor-pointer hover:bg-palette-mauve/10">Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout} className="cursor-pointer hover:bg-palette-mauve/10">Выйти</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

@@ -13,9 +13,9 @@ export default function SecondOpinionPage() {
   return (
     <div className="space-y-4">
       <PageHeader 
-        title="Second Opinion" 
-        description="AI-powered similar case analysis"
-        helpContent="This page shows cases with similar patterns to help with diagnosis verification."
+        title="Второе мнение" 
+        description="ИИ-анализ похожих клинических случаев"
+        helpContent="Эта страница показывает случаи с аналогичными паттернами для помощи в проверке диагноза."
       />
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

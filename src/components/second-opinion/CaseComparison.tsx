@@ -43,16 +43,16 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
       const mockCurrentCase: CaseData = {
         id: "current",
         patientId: "P78901",
-        patientName: "William Brown",
+        patientName: "Вильям Браун",
         age: 69,
-        gender: "Male",
-        diagnosis: "Alzheimer's Disease (Early Stage)",
-        findings: "Patient exhibits mild cognitive impairment, particularly in short-term memory. MRI shows early hippocampal atrophy typical of Alzheimer's disease. Mini-Mental State Examination score: 24/30. Self-reported difficulty with complex tasks and occasional disorientation.",
-        treatment: "Donepezil 5mg daily, cognitive behavioral therapy, memory exercises.",
-        outcome: "Pending follow-up in 3 months. Initial response to treatment shows slight improvement in daily function.",
+        gender: "Мужской",
+        diagnosis: "Болезнь Альцгеймера (Ранняя стадия)",
+        findings: "Пациент демонстрирует легкие когнитивные нарушения, особенно кратковременной памяти. МРТ показывает раннюю атрофию гиппокампа, типичную для болезни Альцгеймера. Результат Mini-Mental State Examination: 24/30. Самостоятельно сообщает о трудностях с выполнением сложных задач и периодической дезориентации.",
+        treatment: "Донепезил 5 мг ежедневно, когнитивно-поведенческая терапия, упражнения для памяти.",
+        outcome: "Ожидается повторный визит через 3 месяца. Начальный ответ на лечение показывает незначительное улучшение повседневного функционирования.",
         scanImages: [
-          "https://placehold.co/600x400?text=MRI+Scan+1",
-          "https://placehold.co/600x400?text=MRI+Scan+2"
+          "https://placehold.co/600x400?text=МРТ+Скан+1",
+          "https://placehold.co/600x400?text=МРТ+Скан+2"
         ]
       };
       
@@ -77,16 +77,16 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
       const mockComparisonCase: CaseData = {
         id: "case1",
         patientId: "P12345",
-        patientName: "John Smith",
+        patientName: "Иван Смирнов",
         age: 72,
-        gender: "Male",
-        diagnosis: "Alzheimer's Disease (Early Stage)",
-        findings: "Patient presents with mild memory impairment and occasional confusion. MRI shows early hippocampal atrophy and mild ventricular enlargement. Mini-Mental State Examination score: 25/30. Family reports patient has difficulty managing finances and occasionally gets lost in familiar places.",
-        treatment: "Donepezil 5mg daily, increased to 10mg after 4 weeks. Weekly cognitive stimulation therapy.",
-        outcome: "After 6 months, stabilization of cognitive function with MMSE maintained at 24/30. Patient reports improved confidence in daily activities.",
+        gender: "Мужской",
+        diagnosis: "Болезнь Альцгеймера (Ранняя стадия)",
+        findings: "Пациент имеет легкие нарушения памяти и периодическую спутанность сознания. МРТ показывает раннюю атрофию гиппокампа и легкое расширение желудочков. Результат Mini-Mental State Examination: 25/30. Семья сообщает, что у пациента возникают трудности с управлением финансами, и он иногда теряется в знакомых местах.",
+        treatment: "Донепезил 5 мг ежедневно, увеличено до 10 мг через 4 недели. Еженедельная терапия когнитивной стимуляции.",
+        outcome: "После 6 месяцев наблюдается стабилизация когнитивных функций с сохранением MMSE на уровне 24/30. Пациент сообщает о повышении уверенности в повседневной деятельности.",
         scanImages: [
-          "https://placehold.co/600x400?text=Comparison+MRI+1",
-          "https://placehold.co/600x400?text=Comparison+MRI+2"
+          "https://placehold.co/600x400?text=Сравнение+МРТ+1",
+          "https://placehold.co/600x400?text=Сравнение+МРТ+2"
         ]
       };
       
@@ -101,8 +101,8 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
     if (!comparisonCase) return;
     
     toast({
-      title: "Treatment Plan Copied",
-      description: "The selected treatment approach has been copied to the current case."
+      title: "План лечения скопирован",
+      description: "Выбранный подход к лечению был скопирован для текущего случая."
     });
   };
   
@@ -110,9 +110,9 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <FileText className="h-12 w-12 text-muted-foreground opacity-30" />
-        <h3 className="mt-4 text-lg font-medium">No current case selected</h3>
+        <h3 className="mt-4 text-lg font-medium">Текущий случай не выбран</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Please select a case to begin comparison.
+          Пожалуйста, выберите случай для начала сравнения.
         </p>
       </div>
     );
@@ -122,9 +122,9 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <Brain className="h-12 w-12 text-muted-foreground opacity-30" />
-        <h3 className="mt-4 text-lg font-medium">Second Opinion</h3>
+        <h3 className="mt-4 text-lg font-medium">Второе мнение</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Select a similar case from the list to view comparison.
+          Выберите похожий случай из списка для просмотра сравнения.
         </p>
       </div>
     );
@@ -162,7 +162,7 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium">Case Comparison</h3>
+        <h3 className="text-lg font-medium">Сравнение случаев</h3>
         {tab === "findings" && (
           <Button 
             variant="outline" 
@@ -171,7 +171,7 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
             disabled={!comparisonCase}
           >
             <Copy className="mr-2 h-4 w-4" />
-            Adopt Treatment Approach
+            Использовать этот подход
           </Button>
         )}
       </div>
@@ -180,15 +180,15 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
         <TabsList>
           <TabsTrigger value="findings">
             <FileText className="h-4 w-4 mr-2" />
-            Findings
+            Результаты
           </TabsTrigger>
           <TabsTrigger value="images">
             <FileImage className="h-4 w-4 mr-2" />
-            Images
+            Изображения
           </TabsTrigger>
           <TabsTrigger value="outcomes">
             <ArrowRight className="h-4 w-4 mr-2" />
-            Outcomes
+            Исходы
           </TabsTrigger>
         </TabsList>
       </Tabs>
@@ -197,30 +197,30 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <h4 className="font-medium">Current Case</h4>
-              <Badge className="ml-auto">Current</Badge>
+              <h4 className="font-medium">Текущий случай</h4>
+              <Badge className="ml-auto">Текущий</Badge>
             </div>
             
             <div className="space-y-4">
               <div>
-                <h5 className="text-sm font-medium mb-1">Patient</h5>
+                <h5 className="text-sm font-medium mb-1">Пациент</h5>
                 <p className="text-sm">
-                  {currentCase?.patientName}, {currentCase?.age} years, {currentCase?.gender}
+                  {currentCase?.patientName}, {currentCase?.age} лет, {currentCase?.gender}
                 </p>
               </div>
               
               <div>
-                <h5 className="text-sm font-medium mb-1">Diagnosis</h5>
+                <h5 className="text-sm font-medium mb-1">Диагноз</h5>
                 <p className="text-sm">{currentCase?.diagnosis}</p>
               </div>
               
               <div>
-                <h5 className="text-sm font-medium mb-1">Clinical Findings</h5>
+                <h5 className="text-sm font-medium mb-1">Клинические результаты</h5>
                 <p className="text-sm">{currentCase?.findings}</p>
               </div>
               
               <div>
-                <h5 className="text-sm font-medium mb-1">Treatment Plan</h5>
+                <h5 className="text-sm font-medium mb-1">План лечения</h5>
                 <p className="text-sm">{currentCase?.treatment}</p>
               </div>
             </div>
@@ -228,30 +228,30 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
           
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <h4 className="font-medium">Comparison Case</h4>
-              <Badge variant="outline" className="ml-auto">Similar</Badge>
+              <h4 className="font-medium">Случай для сравнения</h4>
+              <Badge variant="outline" className="ml-auto">Похожий</Badge>
             </div>
             
             <div className="space-y-4">
               <div>
-                <h5 className="text-sm font-medium mb-1">Patient</h5>
+                <h5 className="text-sm font-medium mb-1">Пациент</h5>
                 <p className="text-sm">
-                  {comparisonCase?.patientName}, {comparisonCase?.age} years, {comparisonCase?.gender}
+                  {comparisonCase?.patientName}, {comparisonCase?.age} лет, {comparisonCase?.gender}
                 </p>
               </div>
               
               <div>
-                <h5 className="text-sm font-medium mb-1">Diagnosis</h5>
+                <h5 className="text-sm font-medium mb-1">Диагноз</h5>
                 <p className="text-sm">{comparisonCase?.diagnosis}</p>
               </div>
               
               <div>
-                <h5 className="text-sm font-medium mb-1">Clinical Findings</h5>
+                <h5 className="text-sm font-medium mb-1">Клинические результаты</h5>
                 <p className="text-sm">{comparisonCase?.findings}</p>
               </div>
               
               <div>
-                <h5 className="text-sm font-medium mb-1">Treatment Plan</h5>
+                <h5 className="text-sm font-medium mb-1">План лечения</h5>
                 <p className="text-sm bg-primary/5 rounded-sm p-1 border-l-2 border-primary">
                   {comparisonCase?.treatment}
                 </p>
@@ -264,13 +264,13 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
       {tab === "images" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-medium mb-3">Current Case Images</h4>
+            <h4 className="font-medium mb-3">Изображения текущего случая</h4>
             <div className="space-y-4">
               {currentCase?.scanImages.map((img, idx) => (
                 <div key={idx} className="border rounded-md overflow-hidden">
-                  <img src={img} alt={`Scan ${idx + 1}`} className="w-full h-auto" />
+                  <img src={img} alt={`Скан ${idx + 1}`} className="w-full h-auto" />
                   <div className="p-2 bg-muted/30">
-                    <p className="text-xs text-center">Scan {idx + 1}</p>
+                    <p className="text-xs text-center">Скан {idx + 1}</p>
                   </div>
                 </div>
               ))}
@@ -278,13 +278,13 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
           </div>
           
           <div>
-            <h4 className="font-medium mb-3">Comparison Case Images</h4>
+            <h4 className="font-medium mb-3">Изображения для сравнения</h4>
             <div className="space-y-4">
               {comparisonCase?.scanImages.map((img, idx) => (
                 <div key={idx} className="border rounded-md overflow-hidden">
-                  <img src={img} alt={`Comparison Scan ${idx + 1}`} className="w-full h-auto" />
+                  <img src={img} alt={`Сравнение Скан ${idx + 1}`} className="w-full h-auto" />
                   <div className="p-2 bg-muted/30">
-                    <p className="text-xs text-center">Scan {idx + 1}</p>
+                    <p className="text-xs text-center">Скан {idx + 1}</p>
                   </div>
                 </div>
               ))}
@@ -296,25 +296,25 @@ export function CaseComparison({ currentCaseId, comparisonCaseId }: CaseComparis
       {tab === "outcomes" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-medium mb-3">Current Case</h4>
+            <h4 className="font-medium mb-3">Текущий случай</h4>
             <div className="p-4 border rounded-md">
-              <h5 className="text-sm font-medium mb-2">Expected Outcome</h5>
+              <h5 className="text-sm font-medium mb-2">Ожидаемый исход</h5>
               <p className="text-sm">{currentCase?.outcome}</p>
             </div>
           </div>
           
           <div>
-            <h4 className="font-medium mb-3">Comparison Case</h4>
+            <h4 className="font-medium mb-3">Случай для сравнения</h4>
             <div className="p-4 border rounded-md">
-              <h5 className="text-sm font-medium mb-2">Documented Outcome</h5>
+              <h5 className="text-sm font-medium mb-2">Документированный исход</h5>
               <p className="text-sm">{comparisonCase?.outcome}</p>
               
               <div className="mt-4 p-3 bg-primary/5 rounded-md border border-primary/20">
-                <h6 className="text-xs font-medium mb-1">Outcome Relevance</h6>
+                <h6 className="text-xs font-medium mb-1">Актуальность исхода</h6>
                 <p className="text-xs">
-                  This patient had a similar presentation and treatment approach.
-                  The documented outcome suggests a likely stabilization of symptoms
-                  with the current treatment plan.
+                  У этого пациента была похожая клиническая картина и подход к лечению.
+                  Документированный исход предполагает вероятную стабилизацию симптомов
+                  при текущем плане лечения.
                 </p>
               </div>
             </div>
