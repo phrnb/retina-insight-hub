@@ -1,21 +1,28 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, Filter, UserPlus } from "lucide-react";
+import { Search, Filter } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AddPatientForm } from "./AddPatientForm";
 
 interface PatientFiltersProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   handleSearch: (e: React.FormEvent) => void;
+  onPatientAdded?: (patient: any) => void;
 }
 
-export function PatientFilters({ searchQuery, setSearchQuery, handleSearch }: PatientFiltersProps) {
+export function PatientFilters({ 
+  searchQuery, 
+  setSearchQuery, 
+  handleSearch, 
+  onPatientAdded 
+}: PatientFiltersProps) {
   return (
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
       <form onSubmit={handleSearch} className="flex w-full max-w-sm items-center space-x-2">
@@ -45,10 +52,7 @@ export function PatientFilters({ searchQuery, setSearchQuery, handleSearch }: Pa
             <DropdownMenuItem>By Diagnosis</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button size="sm" className="flex gap-2">
-          <UserPlus className="h-4 w-4" />
-          New Patient
-        </Button>
+        <AddPatientForm onPatientAdded={onPatientAdded} />
       </div>
     </div>
   );

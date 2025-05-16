@@ -1,12 +1,11 @@
+
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/common/PageHeader";
-import { ContextualHelp } from "@/components/common/ContextualHelp";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PatientFilters } from "@/components/patient/PatientFilters";
 import { PatientTable } from "@/components/patient/PatientTable";
 import { PatientStats } from "@/components/patient/PatientStats";
-import { UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Sample patient data
@@ -23,18 +22,25 @@ const samplePatients = [
 
 export default function PatientsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredPatients, setFilteredPatients] = useState(samplePatients);
+  const [patients, setPatients] = useState(samplePatients);
+  const [filteredPatients, setFilteredPatients] = useState(patients);
   const [activeTab, setActiveTab] = useState("all");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const filtered = samplePatients.filter(
+    const filtered = patients.filter(
       (patient) =>
         patient.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         patient.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
         patient.diagnosis.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredPatients(filtered);
+  };
+
+  const handlePatientAdded = (patient: any) => {
+    const updatedPatients = [...patients, patient];
+    setPatients(updatedPatients);
+    setFilteredPatients(updatedPatients);
   };
 
   const getStatusBadge = (status: string) => {
@@ -63,6 +69,7 @@ export default function PatientsPage() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         handleSearch={handleSearch}
+        onPatientAdded={handlePatientAdded}
       />
 
       <Tabs defaultValue="all" onValueChange={setActiveTab} className="mb-4">
@@ -80,7 +87,7 @@ export default function PatientsPage() {
       />
       
       <div className="mt-4 flex justify-between items-center text-sm text-muted-foreground">
-        <div>Showing {filteredPatients.length} of {samplePatients.length} patients</div>
+        <div>Showing {filteredPatients.length} of {patients.length} patients</div>
         <div className="flex items-center gap-4">
           <div>
             <span className="font-medium">Page</span> 1 of 1

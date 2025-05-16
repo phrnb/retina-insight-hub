@@ -1,21 +1,62 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { ImageUploader } from "@/components/analysis/ImageUploader";
 import { AnalysisResult } from "@/components/analysis/AnalysisResult";
 import { useToast } from "@/hooks/use-toast";
 import { LoadingSpinner } from "@/components/common/LoadingSpinner";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Card } from "@/components/ui/card";
 
 // Placeholder images for demo
 const placeholderRetina = "https://www.researchgate.net/publication/343321384/figure/fig1/AS:918275507351553@1595950741268/Diabetic-retinopathy-Color-fundus-photographs-show-A-mild-nonproliferative-diabetic.jpg";
 const placeholderHeatmap = "https://www.researchgate.net/publication/343321384/figure/fig2/AS:918275507351555@1595950741310/Heat-maps-showing-areas-of-interest-attention-of-the-CNN-for-classification-of-nonproli.jpg";
 
+// Sample patient data
+const samplePatients = [
+  { id: "PN-2025-001", name: "John Doe", age: 67 },
+  { id: "PN-2025-002", name: "Sarah Miller", age: 54 },
+  { id: "PN-2025-003", name: "Robert Johnson", age: 72 },
+  { id: "PN-2025-004", name: "Emily Wilson", age: 45 },
+  { id: "PN-2025-005", name: "Michael Brown", age: 61 },
+  { id: "PN-2025-006", name: "Jennifer Davis", age: 58 },
+  { id: "PN-2025-007", name: "David Thompson", age: 49 },
+  { id: "PN-2025-008", name: "Lisa Martinez", age: 63 },
+];
+
 export default function AnalysisPage() {
   const { toast } = useToast();
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [analysisStatus, setAnalysisStatus] = useState<"idle" | "processing" | "complete">("idle");
+  const [selectedPatientId, setSelectedPatientId] = useState<string>("");
+  const [selectedPatient, setSelectedPatient] = useState<any>(null);
   
+  useEffect(() => {
+    if (selectedPatientId) {
+      const patient = samplePatients.find(p => p.id === selectedPatientId);
+      setSelectedPatient(patient);
+    } else {
+      setSelectedPatient(null);
+    }
+  }, [selectedPatientId]);
+
   const handleImageUpload = (file: File) => {
+    if (!selectedPatientId) {
+      toast({
+        title: "Patient Required",
+        description: "Please select a patient before uploading an image.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setUploadedImage(file);
     setAnalysisStatus("processing");
     
@@ -37,6 +78,33 @@ export default function AnalysisPage() {
         helpContent="Upload a high-quality retinal image to receive AI-assisted diagnostic analysis. The system supports fundus, OCT, and other retinal imaging formats."
       />
 
+      <div className="mb-8">
+        <Card className="p-4">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="patient-select">Select Patient</Label>
+              <Select value={selectedPatientId} onValueChange={setSelectedPatientId}>
+                <SelectTrigger id="patient-select" className="w-full md:w-80">
+                  <SelectValue placeholder="Select a patient" />
+                </SelectTrigger>
+                <SelectContent>
+                  {samplePatients.map((patient) => (
+                    <SelectItem key={patient.id} value={patient.id}>
+                      {patient.name} ({patient.id}, {patient.age} yrs)
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {selectedPatient && (
+                <div className="text-sm text-muted-foreground mt-2">
+                  Analysis will be performed for patient: <span className="font-medium">{selectedPatient.name}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </Card>
+      </div>
+
       <div className="grid gap-8 md:grid-cols-2">
         <div>
           <ImageUploader onImageUpload={handleImageUpload} />
@@ -48,7 +116,7 @@ export default function AnalysisPage() {
               <div className="space-y-2">
                 <h3 className="font-medium">No Active Analysis</h3>
                 <p className="text-sm text-muted-foreground">
-                  Upload an image to start the analysis process
+                  Select a patient and upload an image to start the analysis process
                 </p>
               </div>
             </div>
@@ -59,7 +127,7 @@ export default function AnalysisPage() {
               <LoadingSpinner size="lg" className="mb-4" />
               <h3 className="font-medium">Processing Image</h3>
               <p className="text-sm text-muted-foreground mt-2">
-                The AI is analyzing the retinal image
+                The AI is analyzing the retinal image for {selectedPatient?.name}
               </p>
               <div className="w-full max-w-xs bg-muted rounded-full h-2 mt-4">
                 <div className="bg-medical-400 h-2 rounded-full animate-pulse-medical" style={{ width: "70%" }}></div>
@@ -67,10 +135,10 @@ export default function AnalysisPage() {
             </div>
           )}
           
-          {analysisStatus === "complete" && (
+          {analysisStatus === "complete" && selectedPatient && (
             <AnalysisResult
-              patientName="John Doe"
-              analysisDate="April 8, 2025"
+              patientName={selectedPatient.name}
+              analysisDate={new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               originalImage={placeholderRetina}
               heatmapImage={placeholderHeatmap}
               aiDiagnosis="Moderate Diabetic Retinopathy (NPDR Stage 3) with signs of Diabetic Macular Edema (DME). Multiple microaneurysms visible in the posterior pole. Several dot and blot hemorrhages present. Evidence of hard exudates in the macular region suggesting DME. No signs of neovascularization or vitreous hemorrhage. Recommend referral to retina specialist within 1-2 weeks."
