@@ -42,7 +42,7 @@ export function AddPatientForm({ onPatientAdded }: AddPatientFormProps) {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [diagnosis, setDiagnosis] = useState("");
-  const [status, setStatus] = useState("Stable");
+  const [status, setStatus] = useState("Стабильный");
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -74,12 +74,12 @@ export function AddPatientForm({ onPatientAdded }: AddPatientFormProps) {
       setName("");
       setAge("");
       setDiagnosis("");
-      setStatus("Stable");
+      setStatus("Стабильный");
       
       // Show success message
       toast({
-        title: "Patient Added",
-        description: `${name} has been added to the system.`
+        title: "Пациент добавлен",
+        description: `${name} добавлен в систему.`
       });
       
       // Call the callback if provided
@@ -94,30 +94,30 @@ export function AddPatientForm({ onPatientAdded }: AddPatientFormProps) {
       <DialogTrigger asChild>
         <Button size="sm" className="flex gap-2">
           <UserPlus className="h-4 w-4" />
-          New Patient
+          Новый пациент
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Add New Patient</DialogTitle>
+          <DialogTitle>Добавить нового пациента</DialogTitle>
           <DialogDescription>
-            Enter patient details to add them to the system.
+            Введите данные пациента, чтобы добавить его в систему.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">Полное имя</Label>
               <Input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="John Doe"
+                placeholder="Иван Иванов"
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="age">Age</Label>
+              <Label htmlFor="age">Возраст</Label>
               <Input
                 id="age"
                 type="number"
@@ -130,39 +130,39 @@ export function AddPatientForm({ onPatientAdded }: AddPatientFormProps) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="diagnosis">Diagnosis</Label>
+              <Label htmlFor="diagnosis">Диагноз</Label>
               <Input
                 id="diagnosis"
                 value={diagnosis}
                 onChange={(e) => setDiagnosis(e.target.value)}
-                placeholder="Multiple Sclerosis"
+                placeholder="Рассеянный склероз"
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="status">Status</Label>
+              <Label htmlFor="status">Статус</Label>
               <Select
                 value={status}
                 onValueChange={setStatus}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder="Выберите статус" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Stable">Stable</SelectItem>
-                  <SelectItem value="Improving">Improving</SelectItem>
-                  <SelectItem value="Deteriorating">Deteriorating</SelectItem>
-                  <SelectItem value="Critical">Critical</SelectItem>
+                  <SelectItem value="Стабильный">Стабильный</SelectItem>
+                  <SelectItem value="Улучшается">Улучшается</SelectItem>
+                  <SelectItem value="Ухудшается">Ухудшается</SelectItem>
+                  <SelectItem value="Критический">Критический</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-              Cancel
+              Отмена
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Adding..." : "Add Patient"}
+              {isLoading ? "Добавление..." : "Добавить пациента"}
             </Button>
           </DialogFooter>
         </form>

@@ -21,14 +21,14 @@ const placeholderHeatmap = "https://www.researchgate.net/publication/343321384/f
 
 // Sample patient data
 const samplePatients = [
-  { id: "PN-2025-001", name: "John Doe", age: 67 },
-  { id: "PN-2025-002", name: "Sarah Miller", age: 54 },
-  { id: "PN-2025-003", name: "Robert Johnson", age: 72 },
-  { id: "PN-2025-004", name: "Emily Wilson", age: 45 },
-  { id: "PN-2025-005", name: "Michael Brown", age: 61 },
-  { id: "PN-2025-006", name: "Jennifer Davis", age: 58 },
-  { id: "PN-2025-007", name: "David Thompson", age: 49 },
-  { id: "PN-2025-008", name: "Lisa Martinez", age: 63 },
+  { id: "PN-2025-001", name: "Иван Петров", age: 67 },
+  { id: "PN-2025-002", name: "Анна Смирнова", age: 54 },
+  { id: "PN-2025-003", name: "Роберт Иванов", age: 72 },
+  { id: "PN-2025-004", name: "Екатерина Васильева", age: 45 },
+  { id: "PN-2025-005", name: "Михаил Семенов", age: 61 },
+  { id: "PN-2025-006", name: "Елена Давыдова", age: 58 },
+  { id: "PN-2025-007", name: "Дмитрий Николаев", age: 49 },
+  { id: "PN-2025-008", name: "Ольга Кузнецова", age: 63 },
 ];
 
 export default function AnalysisPage() {
@@ -50,8 +50,8 @@ export default function AnalysisPage() {
   const handleImageUpload = (file: File) => {
     if (!selectedPatientId) {
       toast({
-        title: "Patient Required",
-        description: "Please select a patient before uploading an image.",
+        title: "Выберите пациента",
+        description: "Пожалуйста, выберите пациента перед загрузкой изображения.",
         variant: "destructive"
       });
       return;
@@ -64,8 +64,8 @@ export default function AnalysisPage() {
     setTimeout(() => {
       setAnalysisStatus("complete");
       toast({
-        title: "Analysis complete",
-        description: "AI diagnostic analysis has been completed successfully."
+        title: "Анализ завершен",
+        description: "ИИ-диагностический анализ успешно выполнен."
       });
     }, 3000);
   };
@@ -73,31 +73,31 @@ export default function AnalysisPage() {
   return (
     <div>
       <PageHeader
-        title="Image Analysis"
-        description="Upload and analyze retinal images with AI-assistance"
-        helpContent="Upload a high-quality retinal image to receive AI-assisted diagnostic analysis. The system supports fundus, OCT, and other retinal imaging formats."
+        title="Анализ изображений"
+        description="Загрузка и анализ снимков сетчатки с помощью ИИ"
+        helpContent="Загрузите качественное изображение сетчатки для получения диагностического анализа с помощью ИИ. Система поддерживает фундус-снимки, ОКТ и другие форматы визуализации сетчатки."
       />
 
       <div className="mb-8">
         <Card className="p-4">
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="patient-select">Select Patient</Label>
+              <Label htmlFor="patient-select">Выберите пациента</Label>
               <Select value={selectedPatientId} onValueChange={setSelectedPatientId}>
                 <SelectTrigger id="patient-select" className="w-full md:w-80">
-                  <SelectValue placeholder="Select a patient" />
+                  <SelectValue placeholder="Выберите пациента" />
                 </SelectTrigger>
                 <SelectContent>
                   {samplePatients.map((patient) => (
                     <SelectItem key={patient.id} value={patient.id}>
-                      {patient.name} ({patient.id}, {patient.age} yrs)
+                      {patient.name} ({patient.id}, {patient.age} л.)
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               {selectedPatient && (
                 <div className="text-sm text-muted-foreground mt-2">
-                  Analysis will be performed for patient: <span className="font-medium">{selectedPatient.name}</span>
+                  Анализ будет выполнен для пациента: <span className="font-medium">{selectedPatient.name}</span>
                 </div>
               )}
             </div>
@@ -114,9 +114,9 @@ export default function AnalysisPage() {
           {analysisStatus === "idle" && (
             <div className="h-full flex items-center justify-center text-center p-8 bg-muted/30 rounded-lg border border-dashed">
               <div className="space-y-2">
-                <h3 className="font-medium">No Active Analysis</h3>
+                <h3 className="font-medium">Нет активного анализа</h3>
                 <p className="text-sm text-muted-foreground">
-                  Select a patient and upload an image to start the analysis process
+                  Выберите пациента и загрузите изображение, чтобы начать процесс анализа
                 </p>
               </div>
             </div>
@@ -125,9 +125,9 @@ export default function AnalysisPage() {
           {analysisStatus === "processing" && (
             <div className="h-full flex flex-col items-center justify-center p-8 bg-muted/30 rounded-lg border border-dashed">
               <LoadingSpinner size="lg" className="mb-4" />
-              <h3 className="font-medium">Processing Image</h3>
+              <h3 className="font-medium">Обработка изображения</h3>
               <p className="text-sm text-muted-foreground mt-2">
-                The AI is analyzing the retinal image for {selectedPatient?.name}
+                ИИ анализирует снимок сетчатки для {selectedPatient?.name}
               </p>
               <div className="w-full max-w-xs bg-muted rounded-full h-2 mt-4">
                 <div className="bg-medical-400 h-2 rounded-full animate-pulse-medical" style={{ width: "70%" }}></div>
@@ -138,10 +138,10 @@ export default function AnalysisPage() {
           {analysisStatus === "complete" && selectedPatient && (
             <AnalysisResult
               patientName={selectedPatient.name}
-              analysisDate={new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              analysisDate={new Date().toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
               originalImage={placeholderRetina}
               heatmapImage={placeholderHeatmap}
-              aiDiagnosis="Moderate Diabetic Retinopathy (NPDR Stage 3) with signs of Diabetic Macular Edema (DME). Multiple microaneurysms visible in the posterior pole. Several dot and blot hemorrhages present. Evidence of hard exudates in the macular region suggesting DME. No signs of neovascularization or vitreous hemorrhage. Recommend referral to retina specialist within 1-2 weeks."
+              aiDiagnosis="Умеренная диабетическая ретинопатия (НПДР, стадия 3) с признаками диабетического макулярного отека (ДМО). Множественные микроаневризмы видны в заднем полюсе. Присутствуют несколько точечных и пятнистых кровоизлияний. Признаки твердых экссудатов в области макулы указывают на ДМО. Нет признаков неоваскуляризации или витреального кровоизлияния. Рекомендуется направление к специалисту по сетчатке в течение 1-2 недель."
               confidence={92}
             />
           )}

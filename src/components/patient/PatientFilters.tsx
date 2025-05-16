@@ -27,7 +27,7 @@ export function PatientFilters({
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
       <form onSubmit={handleSearch} className="flex w-full max-w-sm items-center space-x-2">
         <Input
-          placeholder="Search patients..."
+          placeholder="Поиск пациентов..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="flex-1"
@@ -42,14 +42,14 @@ export function PatientFilters({
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="flex gap-2">
               <Filter className="h-4 w-4" />
-              Filter
+              Фильтр
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem>All Patients</DropdownMenuItem>
-            <DropdownMenuItem>Recent Patients</DropdownMenuItem>
-            <DropdownMenuItem>Critical Patients</DropdownMenuItem>
-            <DropdownMenuItem>By Diagnosis</DropdownMenuItem>
+            <DropdownMenuItem>Все пациенты</DropdownMenuItem>
+            <DropdownMenuItem>Последние пациенты</DropdownMenuItem>
+            <DropdownMenuItem>Критические пациенты</DropdownMenuItem>
+            <DropdownMenuItem>По диагнозу</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <AddPatientForm onPatientAdded={onPatientAdded} />

@@ -56,8 +56,8 @@ export function Header() {
             <div className="p-1 rounded-md bg-palette-mauve/10">
               <Brain className="h-5 w-5 text-palette-mauve" />
             </div>
-            <div className="font-semibold text-lg text-palette-mauve">Нейро</div>
-            <div className="font-medium text-lg">Вью</div>
+            <div className="font-semibold text-lg text-palette-mauve">Neuro</div>
+            <div className="font-medium text-lg">View</div>
           </div>
         </div>
         

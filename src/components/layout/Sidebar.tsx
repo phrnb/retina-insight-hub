@@ -87,7 +87,7 @@ export function Sidebar() {
             <div className="rounded-md bg-white/20 p-1.5">
               <Brain className="h-5 w-5 text-white" />
             </div>
-            <span className="ml-2 font-semibold text-white text-lg">НейроВью</span>
+            <span className="ml-2 font-semibold text-white text-lg">NeuroView</span>
           </div>
         )}
         <Button 
