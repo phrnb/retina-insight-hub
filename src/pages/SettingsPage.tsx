@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,10 +8,12 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { ContextualHelp } from "@/components/common/ContextualHelp";
 import { useToast } from "@/hooks/use-toast";
+import { useTheme } from "@/hooks/useTheme";
 import { Bell, Brain, Lock, Monitor, Shield, User } from "lucide-react";
 
 export default function SettingsPage() {
   const { toast } = useToast();
+  const { theme, setTheme } = useTheme();
   const [notifications, setNotifications] = useState({
     email: true,
     push: true,
@@ -225,9 +226,27 @@ export default function SettingsPage() {
                 <div>
                   <Label className="mb-2 block">Theme</Label>
                   <div className="grid grid-cols-3 gap-2">
-                    <Button variant="outline" className="justify-center">Light</Button>
-                    <Button variant="outline" className="justify-center">Dark</Button>
-                    <Button variant="outline" className="justify-center">System</Button>
+                    <Button 
+                      variant={theme === "light" ? "default" : "outline"} 
+                      className="justify-center"
+                      onClick={() => setTheme("light")}
+                    >
+                      Light
+                    </Button>
+                    <Button 
+                      variant={theme === "dark" ? "default" : "outline"} 
+                      className="justify-center"
+                      onClick={() => setTheme("dark")}
+                    >
+                      Dark
+                    </Button>
+                    <Button 
+                      variant={theme === "system" ? "default" : "outline"} 
+                      className="justify-center"
+                      onClick={() => setTheme("system")}
+                    >
+                      System
+                    </Button>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">

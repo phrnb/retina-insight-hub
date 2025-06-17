@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { FileText, Brain, Calendar, Edit, Trash2, Phone, Mail } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -37,10 +36,7 @@ export function PatientActions({ patientId }: PatientActionsProps) {
   };
 
   const handleEdit = () => {
-    toast({
-      title: "Редактирование",
-      description: `Редактируем данные пациента ${patientId}`,
-    });
+    navigate(`/patients/${patientId}/edit`);
   };
 
   const handleCall = () => {

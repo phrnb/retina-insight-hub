@@ -14,6 +14,8 @@ import NotificationsPage from './pages/NotificationsPage';
 import KnowledgeBasePage from './pages/KnowledgeBasePage';
 import ReportHistoryPage from './pages/ReportHistoryPage';
 import SecondOpinionPage from './pages/SecondOpinionPage';
+import EditPatientPage from './pages/EditPatientPage';
+import EditReportPage from './pages/EditReportPage';
 
 export const routes = createBrowserRouter([
   {
@@ -32,6 +34,10 @@ export const routes = createBrowserRouter([
         element: <PatientsPage />,
       },
       {
+        path: '/patients/:patientId/edit',
+        element: <EditPatientPage />,
+      },
+      {
         path: '/analysis',
         element: <AnalysisPage />,
       },
@@ -42,6 +48,10 @@ export const routes = createBrowserRouter([
       {
         path: '/reports',
         element: <ReportsPage />,
+      },
+      {
+        path: '/reports/:reportId/edit',
+        element: <EditReportPage />,
       },
       {
         path: '/reports/history/:reportId',

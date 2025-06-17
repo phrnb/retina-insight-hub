@@ -6,6 +6,7 @@ import { Download, Printer, Share2, Eye, Edit, Trash2 } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { ContextualHelp } from "@/components/common/ContextualHelp";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 // Sample reports data
 const sampleReports = [
@@ -45,6 +46,7 @@ const sampleReports = [
 
 export default function ReportsPage() {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleView = (reportId: string) => {
     toast({
@@ -54,10 +56,7 @@ export default function ReportsPage() {
   };
 
   const handleEdit = (reportId: string) => {
-    toast({
-      title: "Редактирование отчета",
-      description: `Редактируем отчет ${reportId}`,
-    });
+    navigate(`/reports/${reportId}/edit`);
   };
 
   const handlePrint = (reportId: string) => {
