@@ -1,15 +1,11 @@
-
 import { Activity, FileImage, Users, Clock, Zap, BrainCircuit, ArrowUpRight, Eye } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { PatientCard } from "@/components/dashboard/PatientCard";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
+import { DateRangeTabs } from "@/components/dashboard/DateRangeTabs";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ContextualHelp } from "@/components/common/ContextualHelp";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
-import { BarChart, Bar, AreaChart, Area, PieChart, Pie, LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Cell } from "recharts";
 
 // Mock data
 const patients = [
@@ -112,230 +108,52 @@ export default function Dashboard() {
   return (
     <div>
       <PageHeader 
-        title="Dashboard" 
-        description="Welcome back, Dr. Smith"
-        helpContent="This dashboard provides an overview of your recent patients, scans, and activities in the EyeView system."
+        title="Панель управления" 
+        description="Добро пожаловать, Доктор Смирнов"
+        helpContent="Эта панель управления предоставляет обзор ваших последних пациентов, сканов и активности в системе NeuroView."
       >
-        <Button onClick={() => navigate("/analysis")}>New Analysis</Button>
+        <Button onClick={() => navigate("/analysis")}>Новый анализ</Button>
       </PageHeader>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
         <StatCard
-          title="Total Patients"
+          title="Всего пациентов"
           value="254"
           icon={<Users className="h-5 w-5" />}
-          description="Last 30 days"
+          description="За последние 30 дней"
           trend={{ value: 12, isPositive: true }}
-          helpContent="Total number of unique patients in your care during the last 30 days."
+          helpContent="Общее количество уникальных пациентов под вашим наблюдением за последние 30 дней."
         />
         <StatCard
-          title="Eye Scans Analyzed"
+          title="Сканов проанализировано"
           value="138"
           icon={<Eye className="h-5 w-5" />}
-          description="Last 30 days"
+          description="За последние 30 дней"
           trend={{ value: 8, isPositive: true }}
-          helpContent="Total number of eye scan analyses performed in the last 30 days."
+          helpContent="Общее количество анализов сканов глаз, выполненных за последние 30 дней."
         />
         <StatCard
-          title="Analyses This Week"
+          title="Анализов на этой неделе"
           value="42"
           icon={<Activity className="h-5 w-5" />}
-          description="7% increase"
-          helpContent="Number of analyses performed in the current week."
+          description="Рост на 7%"
+          helpContent="Количество анализов, выполненных на текущей неделе."
         />
         <StatCard
-          title="Avg Processing Time"
-          value="4.2s"
+          title="Среднее время обработки"
+          value="4.2с"
           icon={<Zap className="h-5 w-5" />}
-          description="0.3s improvement"
+          description="Улучшение на 0.3с"
           trend={{ value: 7, isPositive: true }}
-          helpContent="Average time to process an eye scan and return analysis results."
+          helpContent="Среднее время обработки скана глаза и возврата результатов анализа."
         />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
-        <Card className="col-span-2">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-md font-medium">
-              Weekly Scan Analysis
-            </CardTitle>
-            <ContextualHelp 
-              title="Weekly Analysis"
-              content="This chart shows the number of eye scans analyzed each day of the current week."
-            />
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={weeklyScans}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-                  <Tooltip 
-                    content={({ active, payload }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <div className="bg-background border rounded p-2 shadow">
-                            <p className="font-medium">{`${payload[0].payload.day}: ${payload[0].value} scans`}</p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }} 
-                  />
-                  <Bar dataKey="scans" fill="#6E59A5" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-md font-medium">
-              Diagnosis Distribution
-            </CardTitle>
-            <ContextualHelp 
-              title="Diagnosis Distribution"
-              content="Distribution of diagnoses across all patients in the current month."
-            />
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={diagnosisDistribution}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={70}
-                    outerRadius={90}
-                    paddingAngle={2}
-                    dataKey="value"
-                  >
-                    {diagnosisDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    content={({ active, payload }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <div className="bg-background border rounded p-2 shadow">
-                            <p className="font-medium">{`${payload[0].name}: ${payload[0].value}%`}</p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }} 
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="grid grid-cols-2 gap-2 mt-2">
-                {diagnosisDistribution.map((item, index) => (
-                  <div key={item.name} className="flex items-center text-xs">
-                    <div 
-                      className="w-3 h-3 mr-1 rounded-sm" 
-                      style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                    />
-                    <span>{item.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-      
-      <div className="grid gap-6 md:grid-cols-2 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-md font-medium">
-              Monthly Analytics
-            </CardTitle>
-            <ContextualHelp 
-              title="Monthly Analytics"
-              content="Comparison of completed vs pending analyses over recent months."
-            />
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={monthlyAnalytics}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip 
-                    content={({ active, payload }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <div className="bg-background border rounded p-2 shadow">
-                            <p className="font-medium">{payload[0].payload.month}</p>
-                            <p className="text-sm text-primary">Completed: {payload[0].value}</p>
-                            <p className="text-sm text-muted-foreground">Pending: {payload[1].value}</p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }} 
-                  />
-                  <Area type="monotone" dataKey="completed" stroke="#6E59A5" fill="#9b87f5" fillOpacity={0.3} />
-                  <Area type="monotone" dataKey="pending" stroke="#E5DEFF" fill="#E5DEFF" fillOpacity={0.3} />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="flex items-center justify-center gap-4 mt-2">
-              <div className="flex items-center text-sm">
-                <div className="w-3 h-3 mr-1 rounded-sm bg-primary" />
-                <span>Completed</span>
-              </div>
-              <div className="flex items-center text-sm">
-                <div className="w-3 h-3 mr-1 rounded-sm bg-muted" />
-                <span>Pending</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-md font-medium">
-              Diagnostic Accuracy Trend
-            </CardTitle>
-            <ContextualHelp 
-              title="Accuracy Trend"
-              content="Trend of diagnostic accuracy over recent months."
-            />
-          </CardHeader>
-          <CardContent>
-            <div className="h-[250px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={accuracyTrend}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" />
-                  <YAxis domain={[80, 100]} />
-                  <Tooltip 
-                    content={({ active, payload }) => {
-                      if (active && payload && payload.length) {
-                        return (
-                          <div className="bg-background border rounded p-2 shadow">
-                            <p className="font-medium">{payload[0].payload.month}</p>
-                            <p className="text-sm">{`Accuracy: ${payload[0].value}%`}</p>
-                          </div>
-                        );
-                      }
-                      return null;
-                    }} 
-                  />
-                  <Line type="monotone" dataKey="accuracy" stroke="#6E59A5" strokeWidth={2} dot={{ fill: "#6E59A5" }} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="mb-8">
+        <DateRangeTabs />
       </div>
 
-      <h2 className="text-xl font-medium mb-4">Recent Patients</h2>
+      <h2 className="text-xl font-medium mb-4">Последние пациенты</h2>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
         {patients.map((patient) => (
           <PatientCard
