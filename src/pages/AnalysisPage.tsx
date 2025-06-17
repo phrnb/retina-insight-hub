@@ -31,12 +31,41 @@ const samplePatients = [
   { id: "PN-2025-008", name: "Ольга Кузнецова", age: 63 },
 ];
 
+// Различные офтальмологические диагнозы
+const possibleDiagnoses = [
+  {
+    diagnosis: "Умеренная диабетическая ретинопатия (НПДР, стадия 3) с признаками диабетического макулярного отека (ДМО). Множественные микроаневризмы видны в заднем полюсе. Присутствуют несколько точечных и пятнистых кровоизлияний. Признаки твердых экссудатов в области макулы указывают на ДМО. Нет признаков неоваскуляризации или витреального кровоизлияния. Рекомендуется направление к специалисту по сетчатке в течение 1-2 недель.",
+    confidence: 92
+  },
+  {
+    diagnosis: "Открытоугольная глаукома средней степени тяжести. Наблюдается увеличение экскавации диска зрительного нерва с соотношением C/D 0.7. Истончение нейроретинального ободка в верхней и нижней височных областях. Перипапиллярная атрофия RNFL соответствует характерным глаукоматозным изменениям. Рекомендуется измерение внутриглазного давления и периметрия для подтверждения диагноза.",
+    confidence: 88
+  },
+  {
+    diagnosis: "Возрастная макулярная дегенерация (ВМД) в промежуточной стадии. Множественные средние друзы (>63 мкм) распределены в макулярной области. Наблюдаются пигментные изменения в фовеальной области. Нет признаков неоваскуляризации или географической атрофии. Рекомендуется регулярное наблюдение каждые 6 месяцев и тест Амслера для домашнего мониторинга.",
+    confidence: 85
+  },
+  {
+    diagnosis: "Центральная серозная хориоретинопатия (ЦСХ). Наблюдается субретинальная жидкость в области фовеа с характерным \"куполообразным\" отслоением нейросенсорной сетчатки. Точка протечки видна в области RPE. Отсутствуют твердые экссудаты или кровоизлияния. Состояние может разрешиться спонтанно, но рекомендуется наблюдение в течение 3-4 месяцев.",
+    confidence: 90
+  },
+  {
+    diagnosis: "Гипертоническая ретинопатия 2 степени. Генерализованное сужение артериол с признаками артериовенозного нипинга (симптом Салюса-Гунна). Наблюдаются медно-проволочные рефлексы артериол. Несколько точечных кровоизлияний в среднем слое сетчатки. Нет признаков отека диска зрительного нерва или твердых экссудатов. Рекомендуется контроль артериального давления.",
+    confidence: 87
+  },
+  {
+    diagnosis: "Норма. Здоровая сетчатка без патологических изменений. Диск зрительного нерва имеет четкие границы и нормальную окраску. Соотношение C/D составляет 0.3. Макулярная область без друз или пигментных изменений. Сосудистая архитектура в пределах нормы с хорошим артериовенозным соотношением. Рекомендуется регулярный профилактический осмотр через 1-2 года.",
+    confidence: 95
+  }
+];
+
 export default function AnalysisPage() {
   const { toast } = useToast();
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [analysisStatus, setAnalysisStatus] = useState<"idle" | "processing" | "complete">("idle");
   const [selectedPatientId, setSelectedPatientId] = useState<string>("");
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
+  const [currentDiagnosis, setCurrentDiagnosis] = useState<any>(null);
   
   useEffect(() => {
     if (selectedPatientId) {
@@ -60,8 +89,12 @@ export default function AnalysisPage() {
     setUploadedImage(file);
     setAnalysisStatus("processing");
     
+    // Генерируем случайный диагноз
+    const randomDiagnosis = possibleDiagnoses[Math.floor(Math.random() * possibleDiagnoses.length)];
+    
     // Simulate AI processing time
     setTimeout(() => {
+      setCurrentDiagnosis(randomDiagnosis);
       setAnalysisStatus("complete");
       toast({
         title: "Анализ завершен",
@@ -135,14 +168,14 @@ export default function AnalysisPage() {
             </div>
           )}
           
-          {analysisStatus === "complete" && selectedPatient && (
+          {analysisStatus === "complete" && selectedPatient && currentDiagnosis && (
             <AnalysisResult
               patientName={selectedPatient.name}
               analysisDate={new Date().toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}
               originalImage={placeholderRetina}
               heatmapImage={placeholderHeatmap}
-              aiDiagnosis="Умеренная диабетическая ретинопатия (НПДР, стадия 3) с признаками диабетического макулярного отека (ДМО). Множественные микроаневризмы видны в заднем полюсе. Присутствуют несколько точечных и пятнистых кровоизлияний. Признаки твердых экссудатов в области макулы указывают на ДМО. Нет признаков неоваскуляризации или витреального кровоизлияния. Рекомендуется направление к специалисту по сетчатке в течение 1-2 недель."
-              confidence={92}
+              aiDiagnosis={currentDiagnosis.diagnosis}
+              confidence={currentDiagnosis.confidence}
             />
           )}
         </div>
