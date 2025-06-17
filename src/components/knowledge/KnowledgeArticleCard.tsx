@@ -20,10 +20,27 @@ interface KnowledgeArticleCardProps {
   viewType: "grid" | "list";
 }
 
+// Medical images for ophthalmology articles
+const getArticleImage = (id: string): string => {
+  const images = {
+    "1": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
+    "2": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop", 
+    "3": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop",
+    "4": "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=300&fit=crop",
+    "5": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&fit=crop",
+    "6": "https://images.unsplash.com/photo-1559757175-8a6c4f5c5a2e?w=400&h=300&fit=crop",
+    "7": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop",
+    "8": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop"
+  };
+  return images[id as keyof typeof images] || "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop";
+};
+
 export function KnowledgeArticleCard({ article, viewType }: KnowledgeArticleCardProps) {
   const TypeIcon = article.type === "video" ? Video : 
                   article.type === "protocol" ? FileText : 
                   BookOpen;
+  
+  const imageUrl = getArticleImage(article.id);
   
   if (viewType === "list") {
     return (
@@ -31,7 +48,7 @@ export function KnowledgeArticleCard({ article, viewType }: KnowledgeArticleCard
         <div className="flex flex-col sm:flex-row">
           <div className="relative h-32 sm:h-auto sm:w-36 bg-muted">
             <img 
-              src={article.imageUrl} 
+              src={imageUrl} 
               alt={article.title}
               className="object-cover w-full h-full"
             />
@@ -81,7 +98,7 @@ export function KnowledgeArticleCard({ article, viewType }: KnowledgeArticleCard
     <div className="border rounded-md overflow-hidden hover:border-primary/50 transition-colors duration-200">
       <div className="relative h-40 bg-muted">
         <img 
-          src={article.imageUrl} 
+          src={imageUrl} 
           alt={article.title}
           className="object-cover w-full h-full"
         />

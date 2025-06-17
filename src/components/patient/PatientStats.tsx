@@ -1,24 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line, AreaChart, Area } from "recharts";
-
-const COLORS = ['#6E59A5', '#9b87f5', '#D3E4FD', '#E5DEFF'];
-
-const ageDistribution = [
-  { range: "18-30", count: 12 },
-  { range: "31-45", count: 28 },
-  { range: "46-60", count: 45 },
-  { range: "61-75", count: 38 },
-  { range: "75+", count: 23 },
-];
-
-const diagnosisDistribution = [
-  { name: "Глаукома", value: 35, color: "#6E59A5" },
-  { name: "Диабетическая ретинопатия", value: 28, color: "#9b87f5" },
-  { name: "ВМД", value: 22, color: "#D3E4FD" },
-  { name: "Другие", value: 15, color: "#E5DEFF" },
-];
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, AreaChart, Area } from "recharts";
 
 const monthlyPatients = [
   { month: "Янв", new: 15, total: 180 },
@@ -47,65 +30,7 @@ const chartConfig = {
 
 export function PatientStats() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Возрастное распределение</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={ageDistribution}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="range" />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="count" fill="#6E59A5" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
-      </Card>
-      
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Распределение диагнозов</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={diagnosisDistribution}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={40}
-                  outerRadius={80}
-                  paddingAngle={2}
-                  dataKey="value"
-                >
-                  {diagnosisDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <ChartTooltip content={<ChartTooltipContent />} />
-              </PieChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-          <div className="grid grid-cols-2 gap-2 mt-4">
-            {diagnosisDistribution.map((item, index) => (
-              <div key={item.name} className="flex items-center text-xs">
-                <div 
-                  className="w-3 h-3 mr-2 rounded-sm" 
-                  style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                />
-                <span>{item.name}: {item.value}%</span>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Динамика пациентов</CardTitle>
@@ -136,7 +61,7 @@ export function PatientStats() {
         </CardContent>
       </Card>
 
-      <Card className="md:col-span-2 lg:col-span-3">
+      <Card>
         <CardHeader>
           <CardTitle className="text-lg">Статусы пациентов по месяцам</CardTitle>
         </CardHeader>
